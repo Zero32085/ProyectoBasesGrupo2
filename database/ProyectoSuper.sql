@@ -7,7 +7,7 @@
 CREATE TABLE Paises(
     Id_Pais SERIAL PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
-    codigo_iso VARCHAR(3) NOT NULL DEFAULT 'HN',
+    codigo_iso VARCHAR(2) NOT NULL DEFAULT 'HN',
     moneda VARCHAR(10) NOT NULL DEFAULT 'Lempira',
     estado INT NOT NULL DEFAULT 1 
 );
