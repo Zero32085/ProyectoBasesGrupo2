@@ -71,9 +71,12 @@ CREATE TABLE Categorias(
 CREATE TABLE Productos(
     Id_Producto SERIAL PRIMARY KEY,
     Id_Categoria INT NOT NULL REFERENCES Categorias(Id_Categoria),
+    Id_Sucursal INT NOT NULL REFERENCES Sucursales(Id_Sucursal),
     cod_barra VARCHAR(20) UNIQUE NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(500),
+    stock_minimo DECIMAL(8,2) NOT NULL DEFAULT 10 CHECK(stock_minimo>=0),
+    stock_maximo DECIMAL(8,2) CHECK(stock_maximo>=0),
     precio DECIMAL(8,2) NOT NULL CHECK (precio >= 0),
     costo DECIMAL(8,2) NOT NULL CHECK (costo >= 0),
     porcentaje_isv DECIMAL(5,2) NOT NULL CHECK (porcentaje_isv >= 0),
@@ -155,14 +158,6 @@ CREATE TABLE Empleados(
     Id_RolEmpleado INT NOT NULL REFERENCES RolesEmpleados(Id_RolEmpleado),
     Id_TurnoEmpleado INT NOT NULL REFERENCES TurnosEmpleados(Id_TurnoEmpleado),
     Id_Sucursal INT NOT NULL REFERENCES Sucursales(Id_Sucursal)
-);
-
-CREATE TABLE Productos_Sucursales(
-    Id_ProductoSucursal SERIAL PRIMARY KEY,
-    Id_Producto INT NOT NULL REFERENCES Productos(Id_Producto),
-    Id_Sucursal INT NOT NULL REFERENCES Sucursales(Id_Sucursal),
-    stock_minimo DECIMAL(8,2) NOT NULL DEFAULT 10 CHECK (stock_minimo >= 0),
-    stock_maximo DECIMAL(8,2) CHECK (stock_maximo >= 0)
 );
 
 CREATE TABLE Inventarios(
