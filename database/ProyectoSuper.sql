@@ -1,4 +1,4 @@
--- Active: 1794772925326@@127.0.0.1@5432@Supermercado
+-- Active: 1794772925326@@127.0.0.1@5432@ProyectoSuper
 --Proyecto Sistema de Supermercado
 
 
