@@ -113,18 +113,26 @@ CREATE TABLE Lotes_Vencimiento(
     fecha_vencimiento DATE NOT NULL
 );
 
-CREATE TABLE Clientes(
-    Id_Cliente SERIAL PRIMARY KEY,
+CREATE TABLE Personas(
+    Id_Persona SERIAL PRIMARY KEY,
     dni VARCHAR(13) UNIQUE,
-    rtn VARCHAR(14) UNIQUE,
-    primer_nombre VARCHAR(80) DEFAULT 'Consumidor Final',
+    primer_nombre VARCHAR(80),
     segundo_nombre VARCHAR(80),
     primer_apellido VARCHAR(80),
     segundo_apellido VARCHAR(80),
     correo VARCHAR(100),
+    contrasena_hash VARCHAR(60),
     fecha_nacimiento DATE,
     estado INT NOT NULL DEFAULT 1,
     telefono VARCHAR(20) 
+);
+
+CREATE TABLE Clientes(
+    Id_Cliente SERIAL PRIMARY KEY,
+    Id_Persona INT NOT NULL REFERENCES Personas(Id_Persona),
+    rtn VARCHAR(14) UNIQUE,
+    Id_Direccion INT NOT NULL REFERENCES Direcciones(Id_Direccion),
+    razon_social VARCHAR(200)
 );
 
 CREATE TABLE RolesEmpleados(
@@ -144,16 +152,9 @@ CREATE TABLE TurnosEmpleados(
 
 CREATE TABLE Empleados(
     Id_Empleado SERIAL PRIMARY KEY,
-    dni VARCHAR(13) NOT NULL UNIQUE,
     codigo_empleado VARCHAR(10) NOT NULL UNIQUE,
-    primer_nombre VARCHAR(80) NOT NULL,
-    segundo_nombre VARCHAR(80),
-    primer_apellido VARCHAR(80) NOT NULL,
-    segundo_apellido VARCHAR(80),
-    correo VARCHAR(100) NOT NULL,
-    fecha_nacimiento DATE,
-    estado INT NOT NULL DEFAULT 1,
-    telefono VARCHAR(20) NOT NULL,
+    Id_Persona INT NOT NULL REFERENCES Personas(Id_Persona),
+    salario_base DECIMAL(10,2) NOT NULL,
     fecha_contratacion DATE NOT NULL,
     Id_RolEmpleado INT NOT NULL REFERENCES RolesEmpleados(Id_RolEmpleado),
     Id_TurnoEmpleado INT NOT NULL REFERENCES TurnosEmpleados(Id_TurnoEmpleado),
@@ -254,4 +255,22 @@ CREATE TABLE Pagos_Facturas(
     monto_pagado DECIMAL(8,2) NOT NULL CHECK(monto_pagado>=0),
     referencia_transaccion VARCHAR(100) NULL,
     fecha_pago TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE RepartidorExterno(
+    Id_RepartidorExterno SERIAL PRIMARY KEY,
+    Id_Persona INT NOT NULL REFERENCES Personas(Id_Persona),
+    empresa_Delivery VARCHAR(200) NOT NULL,
+    tipo_vehiculo VARCHAR(50)
+);
+
+CREATE TABLE PedidoADomicilio(
+    Id_PedidoADomicilio SERIAL PRIMARY KEY,
+    Id_RepartidorExterno INT NOT NULL REFERENCES RepartidorExterno(Id_RepartidorExterno),
+    Id_Factura INT NOT NULL REFERENCES Facturas(Id_Factura),
+    tarifa DECIMAL NOT NULL CHECK(tarifa>0),
+    hora_salida TIMESTAMP,
+    hora_entrega TIMESTAMP,
+    Id_Direccion INT NOT NULL REFERENCES Direcciones(Id_Direccion),
+    estado_entrega INT NOT NULL
 );
