@@ -186,6 +186,22 @@ CREATE TABLE Metodos_Pago(
     estado INT NOT NULL
 );
 
+CREATE TABLE Ofertas(
+    Id_Oferta SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion VARCHAR(100) NOT NULL,
+    porcentaje_descuento DECIMAL(8,2) NOT NULL CHECK(porcentaje_descuento BETWEEN 0 AND 1),
+    fecha_inicio TIMESTAMP NOT NULL,
+    fecha_fin TIMESTAMP NOT NULL CHECK(fecha_inicio>fecha_fin),
+    estado INT CHECK(estado BETWEEN 0 AND 1) DEFAULT 1
+);
+
+CREATE TABLE Productos_Ofertas(
+    Id_Productos_Ofertas SERIAL PRIMARY KEY,
+    Id_Productos INT NOT NULL REFERENCES Productos(Id_Productos),
+    Id_Oferta INT NOT NULL REFERENCES Ofertas(Id_Oferta)
+);
+
 CREATE TABLE Facturas(
     Id_Factura SERIAL PRIMARY KEY,
     numero_factura VARCHAR(19) UNIQUE NOT NULL,
@@ -216,4 +232,26 @@ CREATE TABLE Detalle_Facturas(
     descuento_linea DECIMAL(8,2) NOT NULL CHECK (descuento_linea >= 0),
     impuesto_linea DECIMAL(8,2) NOT NULL CHECK (impuesto_linea >= 0),
     subtotal_linea DECIMAL(8,2) NOT NULL CHECK (subtotal_linea >= 0)
+);
+
+CREATE TABLE Tarjetas(
+    Id_Tarjeta SERIAL PRIMARY KEY,
+    Id_Cliente INT NOT NULL REFERENCES Clientes(Id_Cliente),
+    nombre_titular VARCHAR(100) NOT NULL,
+    final_tarjeta VARCHAR(4) NOT NULL,
+    mes SMALLINT NOT NULL,
+    anio SMALLINT NOT NULL,
+    marca VARCHAR(20) NOT NULL,
+    token_generado VARCHAR(255) NOT NULL,
+    estado INT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE Pagos_Facturas(
+    Id_Pago SERIAL PRIMARY KEY,
+    Id_Factura INT NOT NULL REFERENCES Facturas(Id_Factura),
+    Id_Metodo_Pago INT NOT NULL REFERENCES Metodos_Pago(Id_Metodo_Pago),
+    Id_Tarjeta INT NOT NULL REFERENCES Tarjetas(Id_tarjeta),
+    monto_pagado DECIMAL(8,2) NOT NULL CHECK(monto_pagado>=0),
+    referencia_transaccion VARCHAR(100) NULL,
+    fecha_pago TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
