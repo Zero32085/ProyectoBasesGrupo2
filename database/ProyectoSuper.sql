@@ -30,9 +30,8 @@ CREATE TABLE Direcciones(
     Id_Direccion SERIAL PRIMARY KEY,
     Id_Ciudad INT NOT NULL REFERENCES Ciudades(Id_Ciudad),
     colonia VARCHAR(50) NOT NULL,
-    sector VARCHAR(50),
     calle VARCHAR(50),
-    numero_casa VARCHAR(10)
+    referencia VARCHAR(200) NOT NULL  
 );
 
 CREATE TABLE Sucursales(
@@ -46,11 +45,11 @@ CREATE TABLE Sucursales(
 CREATE TABLE Proveedores(
     Id_Proveedor SERIAL PRIMARY KEY,
     Id_Direccion INT NOT NULL REFERENCES Direcciones(Id_Direccion),
-    nombre_o_razonSocial VARCHAR(50) NOT NULL,
+    nombre_o_razonSocial VARCHAR(100) NOT NULL,
     rtn VARCHAR(14) NOT NULL UNIQUE,
     nombre_contacto VARCHAR(50) NOT NULL,
     correo VARCHAR(50),
-    fecha_Registro DATE NOT NULL,
+    fecha_compra TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     estado INT NOT NULL DEFAULT 1
 );
 
@@ -68,9 +67,17 @@ CREATE TABLE Categorias(
     estado INT NOT NULL DEFAULT 1
 );
 
+CREATE TABLE Marcas(
+	Id_Marca SERIAL PRIMARY KEY,
+	nombre VARCHAR(50) NOT NULL,
+	paisOrigen VARCHAR(50) NULL,
+	estado INT NOT NULL DEFAULT 1
+);
+
 CREATE TABLE Productos(
     Id_Producto SERIAL PRIMARY KEY,
     Id_Categoria INT NOT NULL REFERENCES Categorias(Id_Categoria),
+    Id_Marca INT NOT NULL REFERENCES Marcas(Id_Marca),
     Id_Sucursal INT NOT NULL REFERENCES Sucursales(Id_Sucursal),
     cod_barra VARCHAR(20) UNIQUE NOT NULL,
     nombre VARCHAR(100) NOT NULL,
@@ -220,8 +227,7 @@ CREATE TABLE Facturas(
     Id_Sucursal INT NOT NULL REFERENCES Sucursales(Id_Sucursal),
     Id_Cliente INT NOT NULL REFERENCES Clientes(Id_Cliente),
     Id_Empleado INT NOT NULL REFERENCES Empleados(Id_Empleado),
-    Id_Dosificacion INT NOT NULL REFERENCES Dosificaciones_CAI(Id_Dosificacion),
-    Id_Metodo_Pago INT NOT NULL REFERENCES Metodos_Pago(Id_Metodo_Pago)
+    Id_Dosificacion INT NOT NULL REFERENCES Dosificaciones_CAI(Id_Dosificacion)
 );
 
 CREATE TABLE Detalle_Facturas(
@@ -251,7 +257,7 @@ CREATE TABLE Pagos_Facturas(
     Id_Pago SERIAL PRIMARY KEY,
     Id_Factura INT NOT NULL REFERENCES Facturas(Id_Factura),
     Id_Metodo_Pago INT NOT NULL REFERENCES Metodos_Pago(Id_Metodo_Pago),
-    Id_Tarjeta INT NOT NULL REFERENCES Tarjetas(Id_tarjeta),
+    Id_Tarjeta INT NULL REFERENCES Tarjetas(Id_tarjeta),
     monto_pagado DECIMAL(8,2) NOT NULL CHECK(monto_pagado>=0),
     referencia_transaccion VARCHAR(100) NULL,
     fecha_pago TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -260,7 +266,7 @@ CREATE TABLE Pagos_Facturas(
 CREATE TABLE RepartidorExterno(
     Id_RepartidorExterno SERIAL PRIMARY KEY,
     Id_Persona INT NOT NULL REFERENCES Personas(Id_Persona),
-    empresa_Delivery VARCHAR(200) NOT NULL,
+    empresa_delivery VARCHAR(200) NOT NULL,
     tipo_vehiculo VARCHAR(50)
 );
 
@@ -268,9 +274,32 @@ CREATE TABLE PedidoADomicilio(
     Id_PedidoADomicilio SERIAL PRIMARY KEY,
     Id_RepartidorExterno INT NOT NULL REFERENCES RepartidorExterno(Id_RepartidorExterno),
     Id_Factura INT NOT NULL REFERENCES Facturas(Id_Factura),
+    nombre_destinatario VARCHAR(50) NOT NULL,
     tarifa DECIMAL NOT NULL CHECK(tarifa>0),
     hora_salida TIMESTAMP,
     hora_entrega TIMESTAMP,
     Id_Direccion INT NOT NULL REFERENCES Direcciones(Id_Direccion),
     estado_entrega INT NOT NULL
 );
+
+CREATE TABLE Cajas(
+	Id_Caja SERIAL PRIMARY KEY,
+    Id_Sucursal INT NOT NULL REFERENCES Sucursales(Id_Sucursal),
+	numero_caja VARCHAR(20) NOT NULL,
+	descripcion VARCHAR(100),
+	estado INT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE Secciones_Cajas(
+	Id_Seccion SERIAL PRIMARY KEY,
+	Id_Caja INT NOT NULL REFERENCES Cajas(id_Caja),
+	Id_Empleado INT NOT NULL REFERENCES Empleado(Id_Empleado),
+	fecha_apertura TIMESTAMP NOT NULL DEFAULT CURRENT TIMESTAMP,
+	monto_inicial DECIMAL(10,2) NOT NULL CHECK(monto_inicial>=0) DEFAULT 0,
+	fecha_cierre TIMESTAMP,
+	monto_esperado DECIMAL(10,2) CHECK(monto_esperado>=0) DEFAULT 0,
+	diferencia DECIMAL(10,2) CHECK(diferencia>=0) DEFAULT 0,
+	estado INT NOT NULL DEFAULT 1
+);
+
+
