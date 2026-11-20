@@ -1,0 +1,76 @@
+export const CATEGORIAS_MOCK = [
+  { id_categoria: 0, nombre: "Todas" },
+  { id_categoria: 1, nombre: "Frutas y Verduras" },
+  { id_categoria: 2, nombre: "Lácteos y Huevos" },
+  { id_categoria: 3, nombre: "Carnes y Embutidos" },
+  { id_categoria: 4, nombre: "Despensa" },
+];
+
+export const PRODUCTOS_MOCK = [
+  {
+    id_producto: 1,
+    id_categoria: 1,
+    cod_barra: "7401001",
+    nombre: "Manzana Roja Gala (Lb)",
+    descripcion: "Manzana fresca importada de primera calidad.",
+    precio: 28.50,
+    porcentaje_isv: 0.00, // Exento
+    stock_actual: 45,
+    imagen: "🍎",
+  },
+  {
+    id_producto: 2,
+    id_categoria: 2,
+    cod_barra: "7401002",
+    nombre: "Leche Entera 1L",
+    descripcion: "Leche pasteurizada de vaca.",
+    precio: 32.00,
+    porcentaje_isv: 0.00, // Exento
+    stock_actual: 30,
+    imagen: "🥛",
+  },
+  {
+    id_producto: 3,
+    id_categoria: 3,
+    cod_barra: "7401003",
+    nombre: "Pechuga de Pollo Sin Hueso (Lb)",
+    descripcion: "Corte limpio y refrigerado.",
+    precio: 68.00,
+    porcentaje_isv: 0.00,
+    stock_actual: 20,
+    imagen: "🍗",
+  },
+  {
+    id_producto: 4,
+    id_categoria: 4,
+    cod_barra: "7401004",
+    nombre: "Refresco Cola 2L",
+    descripcion: "Bebida carbonatada sabor cola.",
+    precio: 45.00,
+    porcentaje_isv: 15.00, // Gravado 15%
+    stock_actual: 60,
+    imagen: "🥤",
+  },
+  {
+    id_producto: 5,
+    id_categoria: 4,
+    cod_barra: "7401005",
+    nombre: "Café Molido Gourmet 400g",
+    descripcion: "Café de altura tostado medio.",
+    precio: 115.00,
+    porcentaje_isv: 15.00,
+    stock_actual: 15,
+    imagen: "☕",
+  },
+  {
+    id_producto: 6,
+    id_categoria: 1,
+    cod_barra: "7401006",
+    nombre: "Aguacate Hass (Unidad)",
+    descripcion: "En punto ideal de maduración.",
+    precio: 22.00,
+    porcentaje_isv: 0.00,
+    stock_actual: 35,
+    imagen: "🥑",
+  },
+];
