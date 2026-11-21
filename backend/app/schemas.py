@@ -1,5 +1,5 @@
-# 
-from pydantic import BaseModel, EmailStr
+from datetime import date, time
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 class OutBase(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -12,6 +12,27 @@ class LoginClienteData(BaseModel):
 class LoginEmpleadoData(BaseModel):
     codigo_empleado: str
     password: str
+
+
+class RegistroClientesData(BaseModel):
+    primer_nombre: str = Field(min_length=1, max_length=80)
+    segundo_nombre: str | None = Field(dafault=None, max_length=80)
+    primer_apellido: str = Field(min_length=1, max_length=80)
+    segundo_apellido: str | None = Field(default=None, max_length=80)
+    correo: EmailStr
+    password: str = Field(min_length=8, max_length=72)
+    telefono: str | None = Field(default=None, max_length=20)
+    dni: str | None = Field(default=None, max_length=13)
+    rtn: str | None = Field(default=None, max_length=14)
+    razon_social: str | None = Field(default=None, max_length=200)
+    id_direccion: int | None = None
+
+class AuthResponse(OutBase):
+    id_persona: int
+    primer_nombre: str | None = None
+    primer_apellido: str | None = None
+    correo: str | None = None
+    rol: str
 
 class UserOut(BaseModel):
     id_User: int

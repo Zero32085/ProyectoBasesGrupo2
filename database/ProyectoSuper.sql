@@ -303,3 +303,4 @@ CREATE TABLE Pedido_A_Domicilio (
     Id_Direccion INT NOT NULL REFERENCES Direcciones(Id_Direccion),
     estado_entrega INT NOT NULL
 );
+

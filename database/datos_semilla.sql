@@ -80,7 +80,7 @@ INSERT INTO Departamentos (
 INSERT INTO Ciudades(
     Id_Departamento,
     nombre
-) VALUES (9, 'Tegucigalpa')
+) VALUES (9, 'Tegucigalpa'),
 ( 9,'Comayaguela'), 
 ( 10,'Choloma'), 
 ( 1,'Puerto Lempira'), 
@@ -152,9 +152,9 @@ INSERT INTO Clientes(
 (17,NULL,17,NULL),
 (18,'05011997178908',18,'Comercial Flores'),
 (19,NULL,19,NULL),
-(20,'08012002201230',20,'Inversiones Lopez'),
+(20,'08012002201230',20,'Inversiones Lopez')
 
-INSERT INTO Roles_Empleado(
+INSERT INTO Roles_Empleados(
     nombre,
     descripcion
 ) VALUES ('Administrador','Gestiona el sistema y configuraciones generales'),
@@ -205,7 +205,7 @@ INSERT INTO Turnos_Empleados(
 ('Completo','09:00:00','17:00:00','Jornada de atencion administrativa')
 
 INSERT INTO Sucursales(
-    Id_Direccion INT NOT NULL REFERENCES Direcciones(Id_Direccion),
+    Id_Direccion,
     nombre_sucursal,
     telefono  
 ) VALUES(1,'Valora Kennedy','22341001'),
@@ -227,7 +227,7 @@ INSERT INTO Sucursales(
 (17,'Valora Las Brisas','22341017'),
 (18,'Valora El Reparto','22341018'),
 (19,'Valora La Pradera','22341019'),
-(20,'Valora Monterrey','22341020'),
+(20,'Valora Monterrey','22341020')
 
 INSERT INTO Empleados (
     codigo_empleado,
@@ -241,19 +241,19 @@ INSERT INTO Empleados (
 ('EMP002',2,45000.00,'2022-03-10',2,2,2),
 ('EMP003',3,30000.00,'2023-06-20',3,3,3),
 ('EMP004', 4,22000.00,'2023-02-12',4,4,4),
-('EMP005',5,16500.00,'',,,),
-('EMP006', , ,'',,,),
-('EMP007', , ,'',,,),
-('EMP008', , ,'',,,),
-('EMP009', , ,'',,,),
-('EMP010', , ,'',,,),
-('EMP011', , ,'',,,),
-('EMP012', , ,'',,,),
-('EMP013', , ,'',,,),
-('EMP014', , ,'',,,),
-('EMP015', , ,'',,,),
-('EMP016', , ,'',,,),
-('EMP017', , ,'',,,),
-('EMP018', , ,'',,,),
-('EMP019', , ,'',,,),
-('EMP020', , ,'',,,)
+('EMP005',5,16500.00,'2024-03-12',5,5,5),
+('EMP006', 6, 14700.00,'2026-11-20',6,6,6),
+('EMP007', 7, 23500.00,'2025-05-10',7,7,7),
+('EMP008', 8, 17800.00,'2023-12-09',8,8,8),
+('EMP009', 9, 26000.00,'2020-02-14',9,9,9),
+('EMP010', 10, 18700.00,'2021-03-16',10,10,10),
+('EMP011', 11, 16200.00,'2022-02-15',11,11,11),
+('EMP012', 12, 13400.00,'2025-07-08',12,12,12),
+('EMP013', 13, 17100.00,'2024-08-24',13,13,13),
+('EMP014', 14, 20000.00,'2024-03-12',14,14,14),
+('EMP015', 15, 21000.00,'2022-03-10',15,15,15),
+('EMP016', 16, 17800.00,'2026-11-20',16,16,16),
+('EMP017', 17, 17600.00,'2022-03-10',17,17,17),
+('EMP018', 18, 21000.00,'2024-03-12',18,18,18),
+('EMP019', 19, 18000.00,'2026-11-20',19,19,19),
+('EMP020', 20, 21000.00,'2022-03-10',20,20,20)
