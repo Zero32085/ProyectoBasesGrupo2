@@ -113,3 +113,4 @@ class TurnoEmpleadoOut(OutBase):
     hora_inicio: time
     hora_finalizacion: time
     descripcion: str | None
+    

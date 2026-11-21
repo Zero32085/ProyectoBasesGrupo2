@@ -90,3 +90,4 @@ def registrar_cliente(db: Session,data: RegistroClienteData)->Persona | None:
 def get_contrasena(db: Session, contrasena: str):
     return db.query(Persona).filter(Persona.contrasena_hash == contrasena).first()
 
+t
