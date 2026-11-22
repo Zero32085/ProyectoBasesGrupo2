@@ -17,7 +17,7 @@ export default function App() {
     return <Login onLoginSuccess={manejarLoginExitoso}/>;
   }
 
-  if(usuarioActivo.rol == "clientes"){
+  if(usuarioActivo.rol == "cliente"){
     return(
       <TiendaClientes
       usuatio = {usuarioActivo}

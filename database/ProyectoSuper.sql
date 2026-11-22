@@ -176,9 +176,9 @@ CREATE TABLE Empleados (
     Id_Sucursal INT NOT NULL REFERENCES Sucursales(Id_Sucursal)
 );
 
-CREATE TABLE Dosificaciones_CAI (
-    Id_Dosificacion SERIAL PRIMARY KEY,
-    Id_Sucursal INT NOT NULL REFERENCES Sucursales(Id_Sucursal),
+CREATE TABLE Autorizaciones_SAR (
+    id_autorizacion_sar SERIAL PRIMARY KEY,
+    id_sucursal INT NOT NULL REFERENCES sucursales(id_Sucursal),
     cai VARCHAR(37) UNIQUE NOT NULL,
     fecha_limite_emision DATE NOT NULL,
     rango_inicial VARCHAR(19) NOT NULL,
@@ -192,7 +192,7 @@ CREATE TABLE Facturas (
     Id_Sucursal INT NOT NULL REFERENCES Sucursales(Id_Sucursal),
     Id_Cliente INT NOT NULL DEFAULT 1 REFERENCES Clientes(Id_Cliente),
     Id_Empleado INT NOT NULL REFERENCES Empleados(Id_Empleado),
-    Id_Dosificacion INT NOT NULL REFERENCES Dosificaciones_CAI(Id_Dosificacion),
+    Id_autorizacion_sar INT NOT NULL REFERENCES Autorizaciones_SAR(Id_autorizacion_sar),
     numero_factura VARCHAR(19) NOT NULL UNIQUE,
     cai VARCHAR(37) NOT NULL,
     fecha_emision TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

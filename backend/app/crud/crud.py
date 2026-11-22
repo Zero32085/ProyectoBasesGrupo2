@@ -1,7 +1,7 @@
 import bcrypt
 from sqlalchemy.orm import Session
 from app.models.models import Cliente, Empleado, Persona
-from app.schemas.schemas import LoginClienteData, LoginEmpleadoData, RegistroClienteData
+from app.schemas.schemas import LoginClienteData, LoginEmpleadoData, RegistroClientesData
 
 def _hash_password(password: str)-> str:
     return bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt()).decode("utf-8")
@@ -39,7 +39,7 @@ def autenticar_empleado(db: Session,codigo_empleado:str, password: str)-> Person
     empleado = (
         db.query(Empleado)
         .filter(Empleado.codigo_empleado == codigo_empleado)
-        .frist()
+        .first()
     )
 
     if not empleado:
@@ -47,7 +47,7 @@ def autenticar_empleado(db: Session,codigo_empleado:str, password: str)-> Person
 
     persona = (
         db.query(Persona)
-        .filter(Persona.Id_Persona == empleado.Id_persona)
+        .filter(Persona.Id_Persona == empleado.Id_Persona)
         .first()
     )
     if not persona or not _verificar_password(password,persona.contrasena_hash):
@@ -56,7 +56,7 @@ def autenticar_empleado(db: Session,codigo_empleado:str, password: str)-> Person
     return persona
 
 
-def registrar_cliente(db: Session,data: RegistroClienteData)->Persona | None:
+def registrar_cliente(db: Session,data: RegistroClientesData)->Persona | None:
     if get_persona_por_correo(db, data.correo):
         return None
 
@@ -74,7 +74,7 @@ def registrar_cliente(db: Session,data: RegistroClienteData)->Persona | None:
     db.add(nueva_persona)
     db.flush()
 
-    direccion_id = data.id_direccion if data.id_direccion is not None else 1
+    direccion_id = data.Id_Direccion if data.Id_Direccion is not None else 1
 
     nuevo_cliente = Cliente(
         Id_Persona=nueva_persona.Id_Persona,
@@ -89,5 +89,3 @@ def registrar_cliente(db: Session,data: RegistroClienteData)->Persona | None:
 
 def get_contrasena(db: Session, contrasena: str):
     return db.query(Persona).filter(Persona.contrasena_hash == contrasena).first()
-
-t
