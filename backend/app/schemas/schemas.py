@@ -1,6 +1,13 @@
-from datetime import date, time
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from datetime import date, time, datetime
+from decimal import Decimal
+from typing import Annotated
+from pydantic import (
+    BaseModel, ConfigDict, EmailStr, Field, model_validator,
+)
 
+Dinero = Annotated[Decimal, Field(max_digits=8, decimal_places=2, ge=0)]
+DineroGrande = Annotated[Decimal, Field(max_digits=12, decimal_places=2, ge=0)]
+Estado = Annotated[int, Field(ge=0, le=1)] 
 
 class OutBase(BaseModel):
     model_config = ConfigDict(from_attributes=True)
