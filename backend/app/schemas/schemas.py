@@ -199,17 +199,18 @@ class SucursalOut(OutBase):
     telefono: str
     estado: int
 
+MontoDecimal = Annotated[Decimal,Field(default=None, gt=0, max_digits=12, decimal_places=2)]
 class EmpleadoCreate(BaseModel):
     codigo_empleado: str = Field(min_length=1, max_length=10)
     Id_Persona: int
-    salario_base: Decimal | None = Field(default=None, gt=0, max_digits=12, decimal_places=2)
+    salario_base: MontoDecimal | None = None
     fecha_contratacion: date
     Id_RolEmpleado: int
     Id_TurnoEmpleado: int
     Id_Sucursal: int
 
 class EmpleadoUpdate(BaseModel):
-    salario_base: Decimal | None = Field(default=None, gt=0, max_digits=12, decimal_places=2)
+    salario_base: MontoDecimal | None = None
     Id_RolEmpleado: int | None = None
     Id_TurnoEmpleado: int | None = None
     Id_Sucursal: int | None = None
