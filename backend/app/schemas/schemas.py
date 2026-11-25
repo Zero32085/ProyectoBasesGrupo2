@@ -24,14 +24,18 @@ class LoginEmpleadoData(BaseModel):
 
 
 class RegistroClientesData(BaseModel):
-    primer_nombre: str = Field(min_length=1, max_length=80)
-    segundo_nombre: str | None = Field(default=None, max_length=80)
-    primer_apellido: str = Field(min_length=1, max_length=80)
-    segundo_apellido: str | None = Field(default=None, max_length=80)
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    primer_nombre: str = Field(alias="primerNombre",min_length=1, max_length=80)
+    segundo_nombre: str | None = Field(default=None,alias="segundoNombre", max_length=80)
+    primer_apellido: str = Field(alias="primerApellido",min_length=1, max_length=80)
+    segundo_apellido: str | None = Field(default=None,alias="segundoApellido", max_length=80)
     correo: EmailStr
     password: str = Field(min_length=8, max_length=72)
     telefono: str | None = Field(default=None, max_length=20)
     dni: str | None = Field(default=None, max_length=13)
+    fecha_nacimiento = str | None = Field(default=None,alias="fechaNacimiento")
     rtn: str | None = Field(default=None, max_length=14)
     razon_social: str | None = Field(default=None, max_length=200)
     Id_Direccion: int | None = None

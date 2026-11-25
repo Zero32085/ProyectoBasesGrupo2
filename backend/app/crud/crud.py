@@ -65,10 +65,10 @@ def registrar_cliente(db: Session,data: RegistroClientesData)->Persona | None:
         segundo_nombre=data.segundo_nombre,
         primer_apellido=data.primer_apellido,
         segundo_apellido=data.segundo_apellido,
+        dni=data.dni,
         correo=data.correo,
         contrasena_hash=_hash_password(data.password),
-        telefono=data.telefono,
-        dni=data.dni,
+        telefono=data.telefono
     )
 
     db.add(nueva_persona)

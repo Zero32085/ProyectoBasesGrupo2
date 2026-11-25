@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Login.css";
+import "./styles/Login.css";
 import { loginCliente,registroCliente, loginEmpleado } from "../services/authService";
 
 export default function Login({ onLoginSuccess }) {
@@ -9,9 +9,15 @@ export default function Login({ onLoginSuccess }) {
   const [correoLogin, setCorreoLogin] = useState("");
   const [claveClienteLogin, setClaveClienteLogin] = useState("");
 
-  const [nombreRegistro, setNombreRegistro] = useState("");
+  const [primerNombreRegistro, setPrimerNombreRegistro] = useState("");
+  const [segundoNombreRegistro, setSegundoNombreRegistro] = useState("");
+  const [primerApellidoRegistro, setPrimerApellidoRegistro] = useState("");
+  const [segundoApellidoRegistro, setSegundoApellidoRegistro] = useState("");
+  const [dniRegistro, setDniRegistro] = useState("");
   const [correoRegistro, setCorreoRegistro] = useState("");
   const [claveRegistro, setClaveRegistro] = useState("");
+  const [fechaNaciemiento, setfechaNacimiento] = useState("");
+  const [telefono, setTelefono] = useState("");
 
   const [codigoEmpleado, setCodigoEmpleado] = useState("");
   const [claveEmpleado, setClaveEmpleado] = useState("");
@@ -53,15 +59,19 @@ export default function Login({ onLoginSuccess }) {
     e.preventDefault();
     resetearMensaje();
     setCargando(true);
-
-    const partes = nombreRegistro.trim().split(/\s+/).filter(Boolean);
-    const primer_nombre = partes[0] || "Cliente";
-    const primer_apellido = partes.slice(1).join(" ") || "General";
     
     try{
-      const data = await registroCliente(correoRegistro.trim(),claveRegistro);
+      const data = await registroCliente(primerNombreRegistro,
+        segundoNombreRegistro,
+        primerApellidoRegistro,
+        segundoApellidoRegistro,
+        dniRegistro,
+        correoRegistro.trim(),
+        claveRegistro,
+        fechaNaciemiento,
+        telefono);
       setMensaje(`Cuenta creada para ${data.correo}. Ya puedes iniciar sesión.`);
-      setNombreRegistro("");
+      setPrimerNombreRegistro("");
       setCorreoRegistro("");
       setClaveRegistro("");
       setModoCliente("login");

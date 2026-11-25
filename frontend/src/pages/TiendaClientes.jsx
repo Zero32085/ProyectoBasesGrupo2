@@ -3,7 +3,7 @@ import { CATEGORIAS_MOCK, PRODUCTOS_MOCK } from "../services/mockProductos";
 import ProductoCard from "../components/ProductoCard";
 import CarritoSidebar from "../components/CarritoSidebar";
 import NavBar from "../components/NavBar";
-import "./TiendaClientes.css";
+import "./styles/TiendaClientes.css";
 
 export default function TiendaCliente({ usuarioActivo, onAbrirLogin, onCerrarSesion }) {
   const [busqueda, setBusqueda] = useState("");
