@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from app.crud import crud
+from app.crud import crud, crud_categorias
 from app.database import SessionLocal, engine
 from app.models.models import Base
 from app.schemas.schemas import (
@@ -10,6 +10,9 @@ from app.schemas.schemas import (
     LoginClienteData,
     LoginEmpleadoData,
     RegistroClientesData,
+    CategoriaCreate,
+    CategoriaUpdate,
+    CategoriaOut
 )
 
 app = FastAPI()
@@ -85,4 +88,47 @@ def login_empleado(data: LoginEmpleadoData, db: Session = Depends(get_db)):
         primer_apellido=persona.primer_apellido,
         correo=persona.correo,
         rol="empleado",
+    )
+
+#categorias
+@app.get("/categorias", response_model=list[CategoriaOut])
+def listar_categorias(db: Session = Depends(get_db)):
+    return crud_categorias.get_categoria(db)
+
+@app.get ("/categorias/{id}", response_model=CategoriaOut)
+def listar_categorias_nombre(id:int,db:Session = Depends (get_db)):
+    return crud_categorias.get_categoria_id(db,id)
+
+@app.post("/categorias/registro", response_model=CategoriaOut)
+def crear_categoria(data: CategoriaCreate, db:Session = Depends(get_db)):
+    categoria = crud_categorias.crear_categoria(db, data)
+    
+    if not categoria:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La categoria ya existe"
+        )
+
+    return CategoriaOut(
+        Id_Categoria=categoria.Id_Categoria,
+        nombre= categoria.nombre,
+        descripcion = categoria.descripcion,
+        estado=categoria.estado
+    )
+
+@app.put("/categorias/{id}", response_model=CategoriaOut)
+def actualizar_categoria (id:int, data: CategoriaUpdate, db:Session=Depends(get_db)):
+    categoria = crud_categorias.actualizar_categoria(db,id,data)
+
+    if not categoria:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La categoria no existe o el nuevo nombre ya esta registrado"
+        )
+    
+    return CategoriaOut(
+        Id_Categoria=categoria.Id_Categoria,
+        nombre= categoria.nombre,
+        descripcion = categoria.descripcion,
+        estado=categoria.estado
     )
