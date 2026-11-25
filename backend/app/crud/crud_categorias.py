@@ -3,7 +3,7 @@ from app.models.models import Categoria
 from app.schemas.schemas import CategoriaCreate, CategoriaUpdate
 
 #seleccionar todas las categorias
-def get_categoria(db: Session) ->list[Categoria] | None:
+def get_categoria(db: Session) ->Categoria | None:
     return db.query(Categoria).all()
 
 #seleccionar categoria por id

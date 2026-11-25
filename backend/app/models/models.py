@@ -428,14 +428,15 @@ class PagoFactura(Base):
 class Oferta(Base):
     __tablename__ = "ofertas"
     __table_args__ = (
-        CheckConstraint("descripcion BETWEEN 0 AND 1", name="ck_descripcion_ofertas"),
+        CheckConstraint("porcentaje_descuento BETWEEN 0 AND 1", name="ck_porcentaje_descuento_ofertas"),
         CheckConstraint("fecha_fin > fecha_inicio", name="ck_ofertas_fechas"),
         CheckConstraint("estado IN (0, 1)", name="ck_ofertas_estado"),
     )
 
     Id_Oferta = Column("id_oferta", Integer, primary_key=True, nullable=False)
     nombre = Column(String(100), nullable=False)
-    descripcion = Column(Numeric(8, 2), nullable=False)
+    descripcion = Column(String(300), nullable=True)
+    porcentaje_descuento = Column(Numeric(8, 2), nullable=False)
     fecha_inicio = Column(DateTime, nullable=False)
     fecha_fin = Column(DateTime, nullable=False)
     estado = Column(Integer, nullable=False, default=1, server_default="1")

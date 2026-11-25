@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from app.crud import crud, crud_categorias
+from app.crud import crud, crud_categorias, crud_ofertas
 from app.database import SessionLocal, engine
 from app.models.models import Base
 from app.schemas.schemas import (
@@ -12,7 +12,10 @@ from app.schemas.schemas import (
     RegistroClientesData,
     CategoriaCreate,
     CategoriaUpdate,
-    CategoriaOut
+    CategoriaOut,
+    OfertaCreate,
+    OfertaUpdate,
+    OfertaOut
 )
 
 app = FastAPI()
@@ -131,4 +134,51 @@ def actualizar_categoria (id:int, data: CategoriaUpdate, db:Session=Depends(get_
         nombre= categoria.nombre,
         descripcion = categoria.descripcion,
         estado=categoria.estado
+    )
+
+#ofertas
+@app.get("/ofertas", response_model=list[OfertaOut])
+def listar_ofertas(db: Session = Depends(get_db)):
+    return crud_ofertas.get_ofertas(db)
+
+@app.get ("/ofertas/{id}", response_model=OfertaOut)
+def listar_ofertas_nombre(id:int,db:Session = Depends (get_db)):
+    return crud_ofertas.get_ofertas_id(db,id)
+
+@app.post("/ofertas/registro", response_model=OfertaOut)
+def crear_Oferta(data: OfertaCreate, db:Session = Depends(get_db)):
+    oferta = crud_ofertas.crear_ofertas(db, data)
+    
+    if not oferta:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La Oferta ya existe"
+        )
+
+    return OfertaOut(
+        Id_Oferta=oferta.Id_Oferta,
+        nombre=oferta.nombre,
+        porcentaje_descuento= oferta.porcentaje_descuento,
+        fecha_inicio= oferta.fecha_inicio,
+        fecha_fin= oferta.fecha_fin,
+        estado= oferta.estado
+    )
+
+@app.put("/ofertas/{id}", response_model=OfertaOut)
+def actualizar_Oferta (id:int, data: OfertaUpdate, db:Session=Depends(get_db)):
+    oferta = crud_ofertas.actualizar_oferta(db,id,data)
+
+    if not oferta:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La Oferta no existe o el nuevo nombre ya esta registrado"
+        )
+    
+    return OfertaOut(
+        Id_Oferta=oferta.Id_Oferta,
+        nombre=oferta.nombre,
+        porcentaje_descuento= oferta.porcentaje_descuento,
+        fecha_inicio= oferta.fecha_inicio,
+        fecha_fin= oferta.fecha_fin,
+        estado= oferta.estado
     )

@@ -289,6 +289,11 @@ class MarcaCreate(BaseModel):
     pais_origen: str | None = Field(default=None, max_length=50)
     estado: Estado = 1
 
+class MarcaUpdate(BaseModel):
+    nombre: str = Field(min_length=1, max_length=50)
+    pais_origen: str | None = Field(default=None, max_length=50)
+    estado: Estado = 1
+
 class MarcaOut(OutBase):
     Id_Marca: int
     nombre: str
@@ -345,20 +350,36 @@ class ProductoOut(OutBase):
 
 class OfertaCreate(BaseModel):
     nombre: str = Field(min_length=1, max_length=100)
+    descripcion: str | None = Field(default=None, max_length=500)
     porcentaje_descuento: Decimal = Field(ge=0, le=1, max_digits=8, decimal_places=2)  # 0.15 = 15%
     fecha_inicio: datetime
     fecha_fin: datetime
     estado: Estado = 1
 
-    #@model_validator(mode="after")
-    #def validar_fechas(self):
-    #    if self.fecha_fin <= self.fecha_inicio:
-    #        raise ValueError("fecha_fin debe ser posterior a fecha_inicio")
-    #    return self
+    @model_validator(mode="after")
+    def validar_fechas(self):
+        if self.fecha_fin <= self.fecha_inicio:
+            raise ValueError("fecha_fin debe ser posterior a fecha_inicio")
+        return self
+
+class OfertaUpdate(BaseModel):
+    nombre: str | None = Field(min_length=1, max_length=100)
+    descripcion: str | None = Field(default=None, max_length=500)
+    porcentaje_descuento: Decimal | None= None
+    fecha_inicio: datetime | None= None
+    fecha_fin: datetime | None= None
+    estado: Estado | None= None
+
+    @model_validator(mode="after")
+    def validar_fechas(self):
+        if self.fecha_fin <= self.fecha_inicio:
+            raise ValueError("fecha_fin debe ser posterior a fecha_inicio")
+        return self
 
 class OfertaOut(OutBase):
     Id_Oferta: int
     nombre: str
+    descripcion: str | None = Field(default=None, max_length=500)
     porcentaje_descuento: Decimal
     fecha_inicio: datetime
     fecha_fin: datetime
