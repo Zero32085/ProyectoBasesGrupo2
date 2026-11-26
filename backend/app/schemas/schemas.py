@@ -397,6 +397,10 @@ class ProductoOfertaCreate(BaseModel):
     Id_Productos: int
     Id_Oferta: int
 
+class ProductoOfertaUpdate(BaseModel):
+    Id_Productos: int
+    Id_Oferta: int
+
 class ProductoOfertaOut(OutBase):
     Id_ProductosOfertas: int
     Id_Productos: int

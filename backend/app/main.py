@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from app.crud import crud, crud_categorias, crud_ofertas, crud_productos, crud_marcas, crud_inventarios
+from app.crud import crud, crud_categorias, crud_ofertas, crud_productos, crud_marcas, crud_inventarios, crud_producto_oferta
 from app.database import SessionLocal, engine
 from app.models.models import Base
 from app.schemas.schemas import (
@@ -24,7 +24,10 @@ from app.schemas.schemas import (
     MarcaOut,
     InventarioCreate,
     InventarioUpdate,
-    InventarioOut
+    InventarioOut,
+    ProductoOfertaCreate,
+    ProductoOfertaUpdate,
+    ProductoOfertaOut
 )
 
 app = FastAPI()
@@ -380,3 +383,53 @@ def actualizar_inventario(id: int, data: InventarioUpdate, db: Session = Depends
     )
 
 #ProductoOferta
+
+@app.get("/productosofertas", response_model=list[ProductoOfertaOut])
+def listar_productos_ofertas(db: Session = Depends(get_db)):
+    return crud_producto_oferta.get_productos_ofertas(db)
+
+@app.get("/productosofertas/{id}", response_model=ProductoOfertaOut)
+def listar_productos_ofertas_id(id: int, db: Session = Depends(get_db)):
+    producto_oferta = crud_producto_oferta.get_productos_ofertas_id(db, id)
+
+    if not producto_oferta:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="El producto oferta no existe"
+        )
+
+    return producto_oferta
+
+
+@app.post("/productosofertas/registro", response_model=ProductoOfertaOut)
+def crear_producto_oferta(data: ProductoOfertaCreate, db: Session = Depends(get_db)):
+    producto_oferta = crud_producto_oferta.crear_producto_oferta(db, data)
+
+    if not producto_oferta:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La asignacion ya existe o el producto u oferta no existe"
+        )
+
+    return ProductoOfertaOut(
+        Id_ProductosOfertas=producto_oferta.Id_ProductosOfertas,
+        Id_Productos=producto_oferta.Id_Productos,
+        Id_Oferta=producto_oferta.Id_Oferta
+    )
+
+
+@app.put("/productosofertas/{id}", response_model=ProductoOfertaOut)
+def actualizar_producto_oferta(id: int, data: ProductoOfertaUpdate, db: Session = Depends(get_db)):
+    producto_oferta = crud_producto_oferta.actualizar_producto_oferta(db, id, data)
+
+    if not producto_oferta:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La asignacion no existe, esta duplicada o el producto u oferta no existe"
+        )
+
+    return ProductoOfertaOut(
+        Id_ProductosOfertas=producto_oferta.Id_ProductosOfertas,
+        Id_Productos=producto_oferta.Id_Productos,
+        Id_Oferta=producto_oferta.Id_Oferta
+    )

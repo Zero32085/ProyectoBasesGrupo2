@@ -306,3 +306,9 @@ CREATE TABLE Pedido_A_Domicilio (
     estado_entrega INT NOT NULL
 );
 
+CREATE TABLE ProductosOfertas (
+    Id_ProductosOfertas SERIAL PRIMARY KEY,
+    Id_Productos INT NOT NULL REFERENCES Productos(Id_Producto),
+    Id_Oferta INT NOT NULL REFERENCES Ofertas(Id_Oferta),
+    UNIQUE (Id_Productos, Id_Oferta)
+);
