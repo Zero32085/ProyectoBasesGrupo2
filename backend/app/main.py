@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from app.crud import crud, crud_categorias, crud_ofertas
+from app.crud import crud, crud_categorias, crud_ofertas, crud_productos, crud_marcas, crud_inventarios
 from app.database import SessionLocal, engine
 from app.models.models import Base
 from app.schemas.schemas import (
@@ -15,7 +15,16 @@ from app.schemas.schemas import (
     CategoriaOut,
     OfertaCreate,
     OfertaUpdate,
-    OfertaOut
+    OfertaOut,
+    ProductoCreate,
+    ProductoUpdate,
+    ProductoOut,
+    MarcaCreate,
+    MarcaUpdate,
+    MarcaOut,
+    InventarioCreate,
+    InventarioUpdate,
+    InventarioOut
 )
 
 app = FastAPI()
@@ -99,8 +108,16 @@ def listar_categorias(db: Session = Depends(get_db)):
     return crud_categorias.get_categoria(db)
 
 @app.get ("/categorias/{id}", response_model=CategoriaOut)
-def listar_categorias_nombre(id:int,db:Session = Depends (get_db)):
-    return crud_categorias.get_categoria_id(db,id)
+def listar_categorias_id(id:int,db:Session = Depends (get_db)):
+    cat = crud_categorias.get_categoria_id(db,id)
+
+    if not cat:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="La categoria no existe"
+        )
+
+    return cat
 
 @app.post("/categorias/registro", response_model=CategoriaOut)
 def crear_categoria(data: CategoriaCreate, db:Session = Depends(get_db)):
@@ -142,8 +159,16 @@ def listar_ofertas(db: Session = Depends(get_db)):
     return crud_ofertas.get_ofertas(db)
 
 @app.get ("/ofertas/{id}", response_model=OfertaOut)
-def listar_ofertas_nombre(id:int,db:Session = Depends (get_db)):
-    return crud_ofertas.get_ofertas_id(db,id)
+def listar_ofertas_id(id:int,db:Session = Depends (get_db)):
+    oferta = crud_ofertas.get_ofertas_id(db,id)
+
+    if not oferta:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="La oferta no existe"
+        )
+    return oferta
+
 
 @app.post("/ofertas/registro", response_model=OfertaOut)
 def crear_Oferta(data: OfertaCreate, db:Session = Depends(get_db)):
@@ -182,3 +207,176 @@ def actualizar_Oferta (id:int, data: OfertaUpdate, db:Session=Depends(get_db)):
         fecha_fin= oferta.fecha_fin,
         estado= oferta.estado
     )
+
+#productos
+@app.get("/productos", response_model=list[ProductoOut])
+def listar_productos(db: Session = Depends(get_db)):
+    return crud_productos.get_producto(db)
+
+@app.get ("/productos/{id}", response_model=ProductoOut)
+def listar_productos_id(id:int,db:Session = Depends (get_db)):
+    producto = crud_productos.get_producto_id(db,id)
+
+    if not producto:
+        raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="El producto no existe"
+            )
+
+@app.post("/productos/registro", response_model=ProductoOut)
+def crear_producto(data: ProductoCreate, db:Session = Depends(get_db)):
+    producto = crud_productos.crear_producto(db, data)
+    
+    if not producto:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="El producto ya existe"
+        )
+
+    return ProductoOut(
+        Id_Producto=producto.Id_Producto,
+        Id_Sucursal=producto.Id_Sucursal,
+        Id_Categoria=producto.Id_Categoria,
+        Id_Marca=producto.Id_Marca,
+        cod_barra = producto.cod_barra,
+        nombre=producto.nombre,
+        descripcion=producto.descripcion,
+        stock_minimo=producto.stock_minimo,
+        stock_maximo= producto.stock_maximo,
+        precio=producto.precio,
+        costo=producto.costo,
+        porcentaje_isv=producto.porcentaje_isv,
+        estado=producto.estado
+    )
+
+@app.put("/productos/{id}", response_model=ProductoOut)
+def actualizar_producto (id:int, data: ProductoUpdate, db:Session=Depends(get_db)):
+    producto = crud_productos.actualizar_producto(db,id,data)
+
+    if not producto:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="El producto no existe o el nuevo nombre ya esta registrado"
+        )
+    
+    return ProductoOut(
+        Id_Producto=producto.Id_Producto,
+        Id_Sucursal=producto.Id_Sucursal,
+        Id_Categoria=producto.Id_Categoria,
+        Id_Marca=producto.Id_Marca,
+        cod_barra = producto.cod_barra,
+        nombre=producto.nombre,
+        descripcion=producto.descripcion,
+        stock_minimo=producto.stock_minimo,
+        stock_maximo= producto.stock_maximo,
+        precio=producto.precio,
+        costo=producto.costo,
+        porcentaje_isv=producto.porcentaje_isv,
+        estado=producto.estado
+    )
+
+#marcas
+@app.get("/marcas", response_model=list[MarcaOut])
+def listar_marcas(db: Session = Depends(get_db)):
+    return crud_marcas.get_marcas(db)
+
+@app.get("/marcas/{id}", response_model=MarcaOut)
+def listar_marcas_id(id: int, db: Session = Depends(get_db)):
+    marca = crud_marcas.get_marcas_id(db, id)
+
+    if not marca:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="La marca no existe"
+        )
+
+    return marca
+
+@app.post("/marcas/registro", response_model=MarcaOut)
+def crear_marca(data: MarcaCreate, db: Session = Depends(get_db)):
+    marca = crud_marcas.crear_marcas(db, data)
+
+    if not marca:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La marca ya existe"
+        )
+
+    return MarcaOut(
+        Id_Marca=marca.Id_Marca,
+        nombre=marca.nombre,
+        pais_origen=marca.pais_origen,
+        estado=marca.estado
+    )
+
+@app.put("/marcas/{id}", response_model=MarcaOut)
+def actualizar_marca(id: int, data: MarcaUpdate, db: Session = Depends(get_db)):
+    marca = crud_marcas.actualizar_Marcas(db, id, data)
+
+    if not marca:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La marca no existe o el nuevo nombre ya esta registrado"
+        )
+
+    return MarcaOut(
+        Id_Marca=marca.Id_Marca,
+        nombre=marca.nombre,
+        pais_origen=marca.pais_origen,
+        estado=marca.estado
+    )
+
+#Inventarios
+@app.get("/inventarios", response_model=list[InventarioOut])
+def listar_inventarios(db: Session = Depends(get_db)):
+    return crud_inventarios.get_inventarios(db)
+
+@app.get("/inventarios/{id}", response_model=InventarioOut)
+def listar_inventarios_id(id: int, db: Session = Depends(get_db)):
+    inventario = crud_inventarios.get_inventarios_id(db, id)
+
+    if not inventario:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="El inventario no existe"
+        )
+
+    return inventario
+
+@app.post("/inventarios/registro", response_model=InventarioOut)
+def crear_inventario(data: InventarioCreate, db: Session = Depends(get_db)):
+    inventario = crud_inventarios.crear_inventarios(db, data)
+
+    if not inventario:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="El inventario ya existe"
+        )
+
+    return InventarioOut(
+        Id_Inventario=inventario.Id_Inventario,
+        Id_Producto=inventario.Id_Producto,
+        Id_Sucursal=inventario.Id_Sucursal,
+        Id_lote_vencimiento=inventario.Id_lote_vencimiento,
+        stock_actual=inventario.stock_actual
+    )
+
+@app.put("/inventarios/{id}", response_model=InventarioOut)
+def actualizar_inventario(id: int, data: InventarioUpdate, db: Session = Depends(get_db)):
+    inventario = crud_inventarios.actualizar_inventarios(db, id, data)
+
+    if not inventario:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="El inventario no existe"
+        )
+
+    return InventarioOut(
+        Id_Inventario=inventario.Id_Inventario,
+        Id_Producto=inventario.Id_Producto,
+        Id_Sucursal=inventario.Id_Sucursal,
+        Id_lote_vencimiento=inventario.Id_lote_vencimiento,
+        stock_actual=inventario.stock_actual
+    )
+
+#ProductoOferta

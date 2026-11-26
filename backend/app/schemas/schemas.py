@@ -301,12 +301,12 @@ class MarcaOut(OutBase):
     estado: int
 
 class ProductoCreate(BaseModel):
-    Id_Categoria: int
     Id_Sucursal: int
+    Id_Categoria: int
+    Id_Marca:int
     cod_barra: str = Field(min_length=1, max_length=20)
     nombre: str = Field(min_length=1, max_length=100)
     descripcion: str | None = Field(default=None, max_length=500)
-    Id_Marca: int
     stock_minimo: Dinero = Decimal("10")
     stock_maximo: Dinero | None = None
     precio: Dinero
@@ -314,13 +314,14 @@ class ProductoCreate(BaseModel):
     porcentaje_isv: Dinero
     estado: Estado = 1
 
-    #@model_validator(mode="after")
-    #def validar_stock(self):
-    #    if self.stock_maximo is not None and self.stock_maximo < self.stock_minimo:
-    #        raise ValueError("stock_maximo no puede ser menor que stock_minimo")
-    #    return self
+    @model_validator(mode="after")
+    def validar_stock(self):
+        if self.stock_maximo is not None and self.stock_maximo < self.stock_minimo:
+           raise ValueError("stock_maximo no puede ser menor que stock_minimo")
+        return self
 
 class ProductoUpdate(BaseModel):
+    Id_Sucursal: int
     Id_Categoria: int | None = None
     Id_Marca: int | None = None
     cod_barra: str | None = Field(default=None, min_length=1, max_length=20)
@@ -333,10 +334,17 @@ class ProductoUpdate(BaseModel):
     porcentaje_isv: Dinero | None = None
     estado: Estado | None = None
 
+    @model_validator(mode="after")
+    def validar_stock(self):
+        if self.stock_maximo is not None and self.stock_maximo < self.stock_minimo:
+           raise ValueError("stock_maximo no puede ser menor que stock_minimo")
+        return self
+
 class ProductoOut(OutBase):
     Id_Producto: int
     Id_Categoria: int
     Id_Sucursal: int
+    Id_Marca: int 
     cod_barra: str
     nombre: str
     descripcion: str | None

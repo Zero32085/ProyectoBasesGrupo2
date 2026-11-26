@@ -219,7 +219,7 @@ class Inventario(Base):
     Id_Inventario = Column("id_inventario", Integer, primary_key=True, nullable=False)
     Id_Producto = Column("id_producto", Integer, ForeignKey("productos.id_producto"), nullable=False)
     Id_Sucursal = Column("id_sucursal", Integer, ForeignKey("sucursales.id_sucursal"), nullable=False)
-    id_lote_vencimiento = Column(Integer, ForeignKey("lotes_vencimiento.id_lotevencimiento"), nullable=False)
+    Id_lote_vencimiento = Column("id_lote_vencimiento", Integer, ForeignKey("lotes_vencimiento.id_lotevencimiento"), nullable=False)   
     stock_actual = Column(Numeric(8, 2), nullable=False)
     producto = relationship("Producto")
     sucursal = relationship("Sucursal")

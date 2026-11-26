@@ -1,4 +1,4 @@
--- Active: 1794772925326@@127.0.0.1@5432@ProyectoSuper
+-- Active: 1795662717894@@127.0.0.1@5432@ProyectoSuper
 --Proyecto Sistema de Supermercado
 
 
@@ -11,6 +11,8 @@ CREATE TABLE Paises (
     moneda VARCHAR(10) NOT NULL DEFAULT 'Lempira',
     estado INT NOT NULL DEFAULT 1
 );
+ALTER TABLE Paises
+ALTER COLUMN moneda TYPE VARCHAR(50);
 
 CREATE TABLE Departamentos (
     Id_Departamento SERIAL PRIMARY KEY,
