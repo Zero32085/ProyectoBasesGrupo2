@@ -1,6 +1,7 @@
 import {useState} from "react";
 import TiendaClientes from "./pages/TiendaClientes";
 import Login from "./pages/Login";
+import PanelAdmin from "./pages/PanelAdmin";
 
 export default function App() {
   const [usuarioActivo, setUsuarioActivo] = useState(null);
@@ -26,20 +27,26 @@ export default function App() {
     );
   }
 
+if(usuarioActivo.rol === "empleado"){
+    return(
+        <PanelAdmin onCerrarSesion={cerrarSesion}/>
+    );
+}
   return (
-    <di
-      style={{
-        padding: "2rem",
-        color: "#f8fafc",
-        backgroundColor: "#0f172a",
-        minHeight: "100vh",
-      }}
+    <div
+        style={{
+            padding: "2rem",
+            color: "#f8fafc",
+            backgroundColor: "#0f172a",
+            minHeight: "100vh",
+        }}
     >
-      <h2>Panel de Empleado</h2>
-      <p>Código: {usuarioActivo.codigo}</p>
-      <button type="button" onClick={cerrarSesion}>
-        Cerrar sesión
-      </button> 
-    </di>
-  )
+        <h2>Panel de Empleado</h2>
+        <p>Código: {usuarioActivo.codigo}</p>
+
+        <button type="button" onClick={cerrarSesion}>
+            Cerrar sesión
+        </button>
+    </div>
+);
 }

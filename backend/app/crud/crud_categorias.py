@@ -3,8 +3,8 @@ from app.models.models import Categoria
 from app.schemas.schemas import CategoriaCreate, CategoriaUpdate
 
 #seleccionar todas las categorias
-def get_categoria(db: Session) ->list[Categoria] | None:
-    return db.query(Categoria).all()
+def get_categoria(db: Session):
+    return db.query(Categoria).order_by(Categoria.estado.desc(), Categoria.Id_Categoria.asc()).all()
 
 #seleccionar categoria por id
 def get_categoria_id(db:Session, id:int) -> Categoria | None:

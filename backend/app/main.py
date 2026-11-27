@@ -1,6 +1,8 @@
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemy import text
+
 
 from app.crud import crud, crud_categorias, crud_ofertas, crud_productos, crud_marcas, crud_inventarios, crud_producto_oferta
 from app.database import SessionLocal, engine
@@ -216,15 +218,28 @@ def actualizar_Oferta (id:int, data: OfertaUpdate, db:Session=Depends(get_db)):
 def listar_productos(db: Session = Depends(get_db)):
     return crud_productos.get_producto(db)
 
-@app.get ("/productos/{id}", response_model=ProductoOut)
-def listar_productos_id(id:int,db:Session = Depends (get_db)):
-    producto = crud_productos.get_producto_id(db,id)
+
+@app.get("/productos/vista")
+def listar_vista_productos(db: Session = Depends(get_db)):
+    return db.execute(text("""
+        SELECT *
+        FROM vw_productos
+        ORDER BY estado DESC, id_producto ASC
+    """)).mappings().all()
+
+#productos
+
+@app.get("/productos/{id}", response_model=ProductoOut)
+def listar_productos_id(id: int, db: Session = Depends(get_db)):
+    producto = crud_productos.get_producto_id(db, id)
 
     if not producto:
         raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="El producto no existe"
-            )
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="El producto no existe"
+        )
+
+    return producto
 
 @app.post("/productos/registro", response_model=ProductoOut)
 def crear_producto(data: ProductoCreate, db:Session = Depends(get_db)):
@@ -312,6 +327,7 @@ def crear_marca(data: MarcaCreate, db: Session = Depends(get_db)):
         estado=marca.estado
     )
 
+
 @app.put("/marcas/{id}", response_model=MarcaOut)
 def actualizar_marca(id: int, data: MarcaUpdate, db: Session = Depends(get_db)):
     marca = crud_marcas.actualizar_Marcas(db, id, data)
@@ -333,6 +349,14 @@ def actualizar_marca(id: int, data: MarcaUpdate, db: Session = Depends(get_db)):
 @app.get("/inventarios", response_model=list[InventarioOut])
 def listar_inventarios(db: Session = Depends(get_db)):
     return crud_inventarios.get_inventarios(db)
+
+@app.get("/inventarios/vista")
+def listar_vista_inventarios(db: Session = Depends(get_db)):
+    return db.execute(text("""
+        SELECT *
+        FROM vw_inventarios
+        ORDER BY id_inventario ASC
+    """)).mappings().all()
 
 @app.get("/inventarios/{id}", response_model=InventarioOut)
 def listar_inventarios_id(id: int, db: Session = Depends(get_db)):
@@ -382,6 +406,7 @@ def actualizar_inventario(id: int, data: InventarioUpdate, db: Session = Depends
         stock_actual=inventario.stock_actual
     )
 
+
 #ProductoOferta
 
 @app.get("/productosofertas", response_model=list[ProductoOfertaOut])
@@ -416,7 +441,6 @@ def crear_producto_oferta(data: ProductoOfertaCreate, db: Session = Depends(get_
         Id_Productos=producto_oferta.Id_Productos,
         Id_Oferta=producto_oferta.Id_Oferta
     )
-
 
 @app.put("/productosofertas/{id}", response_model=ProductoOfertaOut)
 def actualizar_producto_oferta(id: int, data: ProductoOfertaUpdate, db: Session = Depends(get_db)):

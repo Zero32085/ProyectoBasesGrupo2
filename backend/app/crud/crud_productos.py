@@ -4,7 +4,10 @@ from app.schemas.schemas import ProductoCreate, ProductoUpdate
 
 #seleccionar todas los productos
 def get_producto(db: Session) ->list[Producto] | None:
-    return db.query(Producto).all()
+    return db.query(Producto).order_by(
+        Producto.estado.desc(),
+        Producto.Id_Producto.asc()
+    ).all()
 
 #seleccionar productos por id
 def get_producto_id(db:Session, id:int) -> Producto | None:
