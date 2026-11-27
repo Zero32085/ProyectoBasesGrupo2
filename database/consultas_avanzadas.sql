@@ -1,4 +1,4 @@
--- Active: 1795662717894@@127.0.0.1@5432@ProyectoSuper
+-- Active: 1794772925326@@127.0.0.1@5432@ProyectoSuper
 
 ALTER TABLE Paises ALTER COLUMN moneda TYPE VARCHAR(100);
 

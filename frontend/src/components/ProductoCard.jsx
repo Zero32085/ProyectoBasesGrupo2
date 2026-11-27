@@ -16,7 +16,7 @@ export default function ProductoCard({ producto, onAgregar }) {
           <button
             className="btn-agregar"
             onClick={() => onAgregar(producto)}
-            disabled={producto.stock_actual <= 0}
+            disabled={producto.stock_actual != null && Number(producto.stock_actual) <= 0}
           >
             + Agregar
           </button>

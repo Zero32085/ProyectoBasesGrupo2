@@ -5,8 +5,6 @@ import PanelAdmin from "./pages/PanelAdmin";
 import AperturaCaja from "./pages/AperturaCaja";
 import ArqueoCierre from "./pages/ArqueoCierre";
 
-import BotonLogin from "./components/BotonLogin";
-
 export default function App() {
 
   const [usuarioActivo, setUsuarioActivo] = useState(null);
@@ -59,8 +57,8 @@ if (!usuarioActivo || usuarioActivo.rol === "cliente") {
 
 if (!sesionCaja) {
   return (
-     <AperturaCaja
-       usuario={usuarioActivo}
+      <AperturaCaja
+        usuario={usuarioActivo}
         onCajaAbierta={setSesionCaja}
         onCerrarSesion={cerrarSesion}
       />

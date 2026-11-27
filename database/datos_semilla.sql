@@ -763,7 +763,7 @@ INSERT INTO Pedido_A_Domicilio (
 (19, 19, 'Natalia García', 50.00, '2026-11-10 12:00:00', '2026-11-10 12:35:00', 19, 2),
 (20, 20, 'Roberto Paz', 55.00, '2026-11-10 19:35:00', NULL, 20, 1);
 
-INSERT INTO ProductosOfertas (Id_Productos, Id_Oferta)
+INSERT INTO Productos_Ofertas (Id_Productos, Id_Oferta)
 VALUES
     (1, 1),
     (2, 1),

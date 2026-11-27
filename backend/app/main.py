@@ -4,7 +4,16 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 
 
-from app.crud import crud, crud_categorias, crud_ofertas, crud_productos, crud_marcas, crud_inventarios, crud_producto_oferta
+from app.crud import( 
+    crud,
+    crud_categorias,
+    crud_ofertas, 
+    crud_productos, 
+    crud_marcas, 
+    crud_inventarios, 
+    crud_producto_oferta,
+    crud_direcciones
+    )
 from app.database import SessionLocal, engine
 from app.routers import caja  
 from app.models.models import Base
@@ -32,6 +41,7 @@ from app.schemas.schemas import (
     ProductoOfertaUpdate,
     ProductoOfertaOut
 )
+from app.schemas.schema_direcciones import DireccionCreate, DireccionOut
 
 app = FastAPI()
 
@@ -464,3 +474,41 @@ def actualizar_producto_oferta(id: int, data: ProductoOfertaUpdate, db: Session 
         Id_Oferta=producto_oferta.Id_Oferta
     )
 
+# Direcciones de clientes
+@app.post("/clientes/direccion", status_code=status.HTTP_200_OK)
+def guardar_direccion_cliente(
+    id_persona: int,
+    data: DireccionCreate,
+    db: Session = Depends(get_db),
+):
+    if not id_persona:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Debes iniciar sesión para guardar una dirección de envío",
+        )
+
+    try:
+        resultado = crud_direcciones.asignar_direccion_cliente(
+            db=db,
+            id_persona=id_persona,
+            data=data,
+        )
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(exc),
+        )
+
+    if not resultado:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No se encontró un cliente asociado al usuario",
+        )
+
+    dir_obj = resultado["direccion"]
+    return {
+        "Id_Cliente": resultado["Id_Cliente"],
+        "Id_Persona": resultado["Id_Persona"],
+        "Id_Direccion": resultado["Id_Direccion"],
+        "direccion": DireccionOut.model_validate(dir_obj),
+    }
