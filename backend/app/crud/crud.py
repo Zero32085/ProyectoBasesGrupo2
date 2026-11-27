@@ -44,12 +44,14 @@ def autenticar_empleado(db: Session,codigo_empleado:str, password: str)-> Person
 
     if not empleado:
         return None
-
+    #esta funcion de persona no me validaba
     persona = (
         db.query(Persona)
         .filter(Persona.Id_Persona == empleado.Id_Persona)
         .first()
     )
+    #Funcion que me servia en la apertura y cierre de caja
+    #persona = empleado.persona
     if not persona or not _verificar_password(password,persona.contrasena_hash):
         return None
 
