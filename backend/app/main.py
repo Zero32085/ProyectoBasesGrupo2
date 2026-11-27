@@ -6,6 +6,7 @@ from sqlalchemy import text
 
 from app.crud import crud, crud_categorias, crud_ofertas, crud_productos, crud_marcas, crud_inventarios, crud_producto_oferta
 from app.database import SessionLocal, engine
+from app.routers import caja  
 from app.models.models import Base
 from app.schemas.schemas import (
     AuthResponse,
@@ -42,6 +43,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(caja.router)
 
 def get_db():
     db = SessionLocal()
@@ -106,7 +108,9 @@ def login_empleado(data: LoginEmpleadoData, db: Session = Depends(get_db)):
         primer_apellido=persona.primer_apellido,
         correo=persona.correo,
         rol="empleado",
-        rol_empleado=resultado["rol_empleado"]
+        Id_Empleado=resultado["empleado"].Id_Empleado,
+        rol_empleado=resultado["rol_empleado"],
+        codigo_empleado=resultado["codigo_empleado"],
     )
 
 #categorias
