@@ -1,5 +1,5 @@
 import { useEffect, useState} from "react";
-import "../pages/Proveedor.css";
+import "../pages/styles/Proveedor.css";
 const API_URL = "http://127.0.0.1:8000";
 
 export default function Proveedor() {

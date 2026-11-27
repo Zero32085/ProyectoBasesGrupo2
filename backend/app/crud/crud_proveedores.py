@@ -4,9 +4,7 @@ from decimal import Decimal, ROUND_HALF_UP
 from datetime import timedelta
 from app.models.models import Proveedor, TelefonoProveedor, Pais, Departamento, Ciudad, Direccion
 from app.schemas.schemas import ProveedorCreate, ProveedorUpdate, ProveedorOut, TelefonoProveedorOut, TelefonoProveedorCreate, TelefonoProveedorOut, CiudadOut, DepartamentoOut, PaisOut
-from app.schemas.schemas import CompraCreate
 
-TASA_ISV = Decimal("0.15")
 
 def obtener_paises(db: Session):
     return db.query(Pais).all()
