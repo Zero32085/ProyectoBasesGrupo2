@@ -14,6 +14,7 @@ export default function App() {
   const [vista,setVista] = useState("tienda")
   const [sesionCaja, setSesionCaja] = useState(null);
   const [mostrandoApertura, setMostrandoApertura] = useState(false);
+  const [mostrandoArqueo, setMostrandoArqueo] = useState(false);
   
 
   const manejarLoginExitoso = (datosUsuario) =>{
