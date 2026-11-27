@@ -1,3 +1,4 @@
+-- Active: 1794772925326@@127.0.0.1@5432@ProyectoSuper
 INSERT INTO Personas 
 (   dni,
     primer_nombre,
@@ -757,3 +758,17 @@ INSERT INTO Pedido_A_Domicilio (
 (18, 18, 'Óscar Flores', 45.00, '2026-11-09 15:25:00', '2026-11-09 16:00:00', 18, 2),
 (19, 19, 'Natalia García', 50.00, '2026-11-10 12:00:00', '2026-11-10 12:35:00', 19, 2),
 (20, 20, 'Roberto Paz', 55.00, '2026-11-10 19:35:00', NULL, 20, 1);
+
+
+--datos default
+INSERT INTO Paises(nombre,codigo_iso,moneda)
+VALUES ('Sin determinar','-','-');
+
+INSERT INTO Departamentos(Id_Pais,nombre)
+VALUES (21,'Sin determinar');
+
+INSERT INTO Ciudades(Id_Departamento,nombre)
+VALUES (19,'Sin determinar')
+
+INSERT INTO Direcciones (Id_Ciudad, colonia, calle, referencia)
+VALUES (21, 'Sin dirección', NULL, 'Sin dirección registrada');

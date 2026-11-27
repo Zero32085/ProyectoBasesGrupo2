@@ -19,7 +19,8 @@ function loginCliente(correo, password){
     return peticionPost("/auth/cliente/login",{correo, password});
 }
 
-function registroCliente(primerNombre,
+function registroCliente(
+    primerNombre,
     segundoNombre=null,
     primerApellido,
     segundoApellido=null,
