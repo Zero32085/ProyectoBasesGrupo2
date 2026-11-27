@@ -65,6 +65,8 @@ def autenticar_empleado(db: Session,codigo_empleado:str, password: str)-> dict |
     return {
         "persona":persona,
         "rol_empleado": nombre_rol,
+        "empleado": empleado,
+        "codigo_empleado": empleado.codigo_empleado,
     }
 
 
