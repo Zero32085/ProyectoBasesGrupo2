@@ -93,18 +93,20 @@ def registro_cliente(data: RegistroClientesData, db: Session = Depends(get_db)):
 
 @app.post("/auth/empleado/login", response_model=AuthResponse)
 def login_empleado(data: LoginEmpleadoData, db: Session = Depends(get_db)):
-    persona = crud.autenticar_empleado(db, data.codigo_empleado, data.password)
-    if not persona:
+    resultado = crud.autenticar_empleado(db, data.codigo_empleado, data.password)
+    if not resultado:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Código de empleado o contraseña incorrectos",
         )
+    persona = resultado["persona"]
     return AuthResponse(
         Id_Persona=persona.Id_Persona,
         primer_nombre=persona.primer_nombre,
         primer_apellido=persona.primer_apellido,
         correo=persona.correo,
         rol="empleado",
+        rol_empleado=resultado["rol_empleado"]
     )
 
 #categorias
@@ -457,3 +459,4 @@ def actualizar_producto_oferta(id: int, data: ProductoOfertaUpdate, db: Session 
         Id_Productos=producto_oferta.Id_Productos,
         Id_Oferta=producto_oferta.Id_Oferta
     )
+

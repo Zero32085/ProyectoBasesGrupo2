@@ -21,45 +21,6 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
 }
 
-.tienda-header {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.5rem;
-  background-color: var(--bg-card);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.logo {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--accent);
-}
-
-.buscador-input {
-  flex: 1;
-  min-width: 220px;
-  max-width: 500px;
-  padding: 0.65rem 1rem;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--bg-input);
-  color: var(--text-main);
-}
-
-.rol-badge {
-  background: var(--bg-input);
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-}
 
 /* Layout escritorio: Catálogo a la izquierda, Carrito a la derecha */
 .tienda-contenido {

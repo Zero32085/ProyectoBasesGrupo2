@@ -472,11 +472,11 @@ class SesionCaja(Base):
     __table_args__ = (
         CheckConstraint("monto_inicial >= 0", name="ck_secciones_monto_inicial"),
         CheckConstraint("monto_esperado >= 0", name="ck_secciones_monto_esperado"),
-        CheckConstraint("diferencia >= 0", name="ck_secciones_diferencia"),
+        #CheckConstraint("diferencia >= 0", name="ck_secciones_diferencia"),
         CheckConstraint("estado IN (0, 1)", name="ck_sesiones_cajas_estado"),
     )
 
-    Id_Seccion = Column("id_seccion", Integer, primary_key=True, nullable=False)
+    Id_Sesion = Column("id_sesion", Integer, primary_key=True, nullable=False)
     Id_Caja = Column("id_caja", Integer, ForeignKey("cajas.id_caja"), nullable=False)
     Id_Empleado = Column("id_empleado", Integer, ForeignKey("empleados.id_empleado"), nullable=False)
     fecha_apertura = Column(DateTime, nullable=False, server_default=func.now())

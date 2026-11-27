@@ -1,6 +1,6 @@
 import bcrypt
 from sqlalchemy.orm import Session
-from app.models.models import Cliente, Empleado, Persona
+from app.models.models import Cliente, Empleado, Persona , RolEmpleado
 from app.schemas.schemas import LoginClienteData, LoginEmpleadoData, RegistroClientesData
 
 def _hash_password(password: str)-> str:
@@ -35,10 +35,11 @@ def autenticar_cliente(db: Session, correo: str, password: str)-> Persona | None
     return persona
 
 
-def autenticar_empleado(db: Session,codigo_empleado:str, password: str)-> Persona | None:
+def autenticar_empleado(db: Session,codigo_empleado:str, password: str)-> dict | None:
+    codigo_limpio = codigo_empleado.strip()
     empleado = (
         db.query(Empleado)
-        .filter(Empleado.codigo_empleado == codigo_empleado)
+        .filter(Empleado.codigo_empleado == codigo_limpio)
         .first()
     )
 
@@ -53,39 +54,55 @@ def autenticar_empleado(db: Session,codigo_empleado:str, password: str)-> Person
     if not persona or not _verificar_password(password,persona.contrasena_hash):
         return None
 
-    return persona
+    rol = (
+        db.query(RolEmpleado)
+        .filter(RolEmpleado.Id_RolEmpleado == empleado.Id_RolEmpleado)
+        .first()
+    )
+
+    nombre_rol = rol.nombre.strip().lower() if rol and rol.nombre else None
+
+    return {
+        "persona":persona,
+        "rol_empleado": nombre_rol,
+    }
 
 
 def registrar_cliente(db: Session,data: RegistroClientesData)->Persona | None:
-    if get_persona_por_correo(db, data.correo):
+    correo_limpio = data.correo.strip().lower()
+    if get_persona_por_correo(db, correo_limpio):
         return None
+    try:
+        nueva_persona = Persona(
+            primer_nombre=data.primer_nombre,
+            segundo_nombre=data.segundo_nombre,
+            primer_apellido=data.primer_apellido,
+            segundo_apellido=data.segundo_apellido,
+            dni=data.dni,
+            correo=correo_limpio,
+            contrasena_hash=_hash_password(data.password),
+            fecha_nacimiento= data.fecha_nacimiento,
+            telefono=data.telefono
+        )
 
-    nueva_persona = Persona(
-        primer_nombre=data.primer_nombre,
-        segundo_nombre=data.segundo_nombre,
-        primer_apellido=data.primer_apellido,
-        segundo_apellido=data.segundo_apellido,
-        correo=data.correo,
-        contrasena_hash=_hash_password(data.password),
-        telefono=data.telefono,
-        dni=data.dni,
-    )
+        db.add(nueva_persona)
+        db.flush()
 
-    db.add(nueva_persona)
-    db.flush()
+        direccion_id = data.Id_Direccion if data.Id_Direccion is not None else 21
 
-    direccion_id = data.Id_Direccion if data.Id_Direccion is not None else 1
-
-    nuevo_cliente = Cliente(
-        Id_Persona=nueva_persona.Id_Persona,
-        Id_Direccion=direccion_id,
-        rtn=data.rtn,
-        razon_social=data.razon_social,
-    )
-    db.add(nuevo_cliente)
-    db.commit()
-    db.refresh(nueva_persona)
-    return nueva_persona
+        nuevo_cliente = Cliente(
+            Id_Persona=nueva_persona.Id_Persona,
+            Id_Direccion=direccion_id,
+            rtn=data.rtn,
+            razon_social=data.razon_social,
+        )
+        db.add(nuevo_cliente)
+        db.commit()
+        db.refresh(nueva_persona)
+        return nueva_persona
+    except Exception:
+        db.rollback()
+        raise
 
 def get_contrasena(db: Session, contrasena: str):
     return db.query(Persona).filter(Persona.contrasena_hash == contrasena).first()

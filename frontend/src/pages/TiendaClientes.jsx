@@ -2,9 +2,10 @@ import { useState } from "react";
 import { CATEGORIAS_MOCK, PRODUCTOS_MOCK } from "../services/mockProductos";
 import ProductoCard from "../components/ProductoCard";
 import CarritoSidebar from "../components/CarritoSidebar";
-import "./TiendaClientes.css";
+import NavBar from "../components/NavBar";
+import "./styles/TiendaClientes.css";
 
-export default function TiendaCliente() {
+export default function TiendaCliente({ usuarioActivo, onAbrirLogin, onCerrarSesion }) {
   const [busqueda, setBusqueda] = useState("");
   const [categoriaActiva, setCategoriaActiva] = useState(0);
   const [carrito, setCarrito] = useState([]);
@@ -50,23 +51,17 @@ export default function TiendaCliente() {
 
   return (
     <div className="tienda-layout">
-      {/* Barra superior */}
-      <header className="tienda-header">
-        <div className="logo">🛍️ SuperMarket</div>
-        <input
-          type="text"
-          className="buscador-input"
-          placeholder="Buscar producto o código de barras..."
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-        />
-        <div className="rol-badge">Vista: Cliente</div>
-      </header>
 
-      {/* Contenedor principal responsivo */}
+      <NavBar
+        busqueda={busqueda}
+        setBusqueda={setBusqueda}
+        usuarioActivo={usuarioActivo}
+        onAbrirLogin={onAbrirLogin}
+        onCerrarSesion={onCerrarSesion}
+      />
+
       <div className="tienda-contenido">
         <main className="catalogo-seccion">
-          {/* Píldoras de Categorías */}
           <div className="categorias-bar">
             {CATEGORIAS_MOCK.map((cat) => (
               <button
@@ -79,7 +74,6 @@ export default function TiendaCliente() {
             ))}
           </div>
 
-          {/* Grilla de Productos */}
           <div className="productos-grid">
             {productosFiltrados.map((prod) => (
               <ProductoCard
@@ -91,7 +85,6 @@ export default function TiendaCliente() {
           </div>
         </main>
 
-        {/* Carrito */}
         <CarritoSidebar
           carrito={carrito}
           onCambiarCantidad={cambiarCantidad}

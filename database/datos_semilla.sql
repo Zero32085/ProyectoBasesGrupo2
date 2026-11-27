@@ -1,5 +1,4 @@
-select current_database();
-
+-- Active: 1794772925326@@127.0.0.1@5432@ProyectoSuper
 INSERT INTO Personas 
 (   dni,
     primer_nombre,
@@ -786,3 +785,16 @@ VALUES
     (18, 9),
     (19, 10),
     (20, 10);
+
+--datos default
+INSERT INTO Paises(nombre,codigo_iso,moneda)
+VALUES ('Sin determinar','-','-');
+
+INSERT INTO Departamentos(Id_Pais,nombre)
+VALUES (21,'Sin determinar');
+
+INSERT INTO Ciudades(Id_Departamento,nombre)
+VALUES (19,'Sin determinar')
+
+INSERT INTO Direcciones (Id_Ciudad, colonia, calle, referencia)
+VALUES (21, 'Sin dirección', NULL, 'Sin dirección registrada');

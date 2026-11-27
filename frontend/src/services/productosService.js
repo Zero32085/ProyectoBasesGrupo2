@@ -34,12 +34,12 @@ function actualizarProducto(id, producto){
     return peticion(`/productos/${id}`, "PUT", producto);
 }
 
-function getMarcas(){
-    return peticion("/marcas", "GET");
-}
-
 function getVistaProductos(){
     return peticion("/productos/vista", "GET");
+}
+
+function getMarcas(){
+    return peticion("/marcas", "GET");
 }
 
 export {

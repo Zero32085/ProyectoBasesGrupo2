@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Login.css";
+import "./styles/Login.css";
 import { loginCliente,registroCliente, loginEmpleado } from "../services/authService";
 
 export default function Login({ onLoginSuccess }) {
@@ -9,9 +9,14 @@ export default function Login({ onLoginSuccess }) {
   const [correoLogin, setCorreoLogin] = useState("");
   const [claveClienteLogin, setClaveClienteLogin] = useState("");
 
-  const [nombreRegistro, setNombreRegistro] = useState("");
+  const [primerNombreRegistro, setPrimerNombreRegistro] = useState("");
+  const [segundoNombreRegistro, setSegundoNombreRegistro] = useState("");
+  const [primerApellidoRegistro, setPrimerApellidoRegistro] = useState("");
+  const [segundoApellidoRegistro, setSegundoApellidoRegistro] = useState("");
   const [correoRegistro, setCorreoRegistro] = useState("");
   const [claveRegistro, setClaveRegistro] = useState("");
+  const [fechaNaciemiento, setFechaNacimiento] = useState("");
+  const [telefono, setTelefono] = useState("");
 
   const [codigoEmpleado, setCodigoEmpleado] = useState("");
   const [claveEmpleado, setClaveEmpleado] = useState("");
@@ -53,17 +58,27 @@ export default function Login({ onLoginSuccess }) {
     e.preventDefault();
     resetearMensaje();
     setCargando(true);
-
-    const partes = nombreRegistro.trim().split(/\s+/).filter(Boolean);
-    const primer_nombre = partes[0] || "Cliente";
-    const primer_apellido = partes.slice(1).join(" ") || "General";
     
     try{
-      const data = await registroCliente(correoRegistro.trim(),claveRegistro);
+      const data = await registroCliente(
+        primerNombreRegistro,
+        segundoNombreRegistro || null,
+        primerApellidoRegistro,
+        segundoApellidoRegistro || null,
+        correoRegistro.trim(),
+        claveRegistro,
+        fechaNaciemiento || null,
+        telefono || null
+      );
       setMensaje(`Cuenta creada para ${data.correo}. Ya puedes iniciar sesión.`);
-      setNombreRegistro("");
+      setPrimerNombreRegistro("");
+      setSegundoApellidoRegistro("");
+      setPrimerApellidoRegistro("");
+      setSegundoApellidoRegistro("");
       setCorreoRegistro("");
       setClaveRegistro("");
+      setFechaNacimiento("");
+      setTelefono("");
       setModoCliente("login");
     } catch(err){
       setMensaje(err.message || "No se pudo crear la cuenta");
@@ -182,14 +197,48 @@ export default function Login({ onLoginSuccess }) {
             ) : (
               <form onSubmit={manejarRegistroCliente}>
                 <div className="form-grupo">
-                  <label htmlFor="nombre-registro">Nombre completo</label>
+                  <label htmlFor="primer-nombre">Primer Nombre</label>
                   <input
-                    id="nombre-registro"
+                    id="primer-nombre"
                     type="text"
-                    placeholder="Ej. María Pérez"
-                    value={nombreRegistro}
-                    onChange={(e) => setNombreRegistro(e.target.value)}
+                    placeholder="Ej. John"
+                    value={primerNombreRegistro}
+                    onChange={(e) => setPrimerNombreRegistro(e.target.value)}
                     required
+                  />
+                </div>
+
+                <div className="form-grupo">
+                  <label htmlFor="segundo-nombre">Segundo Nombre</label>
+                  <input
+                    id="segundo-nombre"
+                    type="text"
+                    placeholder="Ej. Tony"
+                    value={segundoNombreRegistro}
+                    onChange={(e) => setSegundoNombreRegistro(e.target.value)}
+                  />
+                </div>
+
+                <div className="form-grupo">
+                  <label htmlFor="primer-apellido">Primer Apellido</label>
+                  <input
+                    id="primer-apellido"
+                    type="text"
+                    placeholder="Ej. Wick"
+                    value={primerApellidoRegistro}
+                    onChange={(e) => setPrimerApellidoRegistro(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="form-grupo">
+                  <label htmlFor="seduno-apellido">Segundo Apellido</label>
+                  <input
+                    id="segundo-apellido"
+                    type="text"
+                    placeholder="Ej. Stark"
+                    value={segundoApellidoRegistro}
+                    onChange={(e) => setSegundoApellidoRegistro(e.target.value)}
                   />
                 </div>
 
@@ -214,6 +263,30 @@ export default function Login({ onLoginSuccess }) {
                     minLength={8}
                     value={claveRegistro}
                     onChange={(e) => setClaveRegistro(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="form-grupo">
+                  <label htmlFor="fecha-nacimiento">Fecha Nacimiento</label>
+                  <input
+                    id="fecha-nacimiento"
+                    type="date"
+                    minLength={8}
+                    value={fechaNaciemiento}
+                    onChange={(e) => setFechaNacimiento(e.target.value)}
+                  />
+                </div>
+
+                <div className="form-grupo">
+                  <label htmlFor="telefono-registro">Telefono</label>
+                  <input
+                    id="telefono-registro"
+                    type="text"
+                    placeholder="+504 9956-6812"
+                    minLength={8}
+                    value={telefono}
+                    onChange={(e) => setTelefono(e.target.value)}
                     required
                   />
                 </div>
