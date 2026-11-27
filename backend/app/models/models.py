@@ -63,7 +63,6 @@ class Direccion(Base):
     colonia = Column(String(50), nullable=False)
     calle = Column(String(50), nullable=True)
     referencia = Column(String(200), nullable=False)
-    nombre_destinatario = Column(String(50), nullable=True)
     ciudad = relationship("Ciudad")
 
 
@@ -96,6 +95,7 @@ class Proveedor(Base):
     fecha_Registro = Column("fecha_registro", DateTime, nullable=False, server_default=func.now())
     estado = Column(Integer, nullable=False, default=1, server_default="1")
     direccion = relationship("Direccion")
+    telefonos = relationship("TelefonoProveedor")
 
 
 class TelefonoProveedor(Base):

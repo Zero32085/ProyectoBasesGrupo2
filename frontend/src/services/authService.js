@@ -19,8 +19,8 @@ function loginCliente(correo, password){
     return peticionPost("/auth/cliente/login",{correo, password});
 }
 
-function registroCliente(correo, password){
-    return peticionPost("/auth/cliente/registro",{correo, password});
+function registroCliente(datosRegistro){
+    return peticionPost("/auth/cliente/registro", datosRegistro);
 }
 
 function loginEmpleado(codigo_empleado, password){

@@ -1,0 +1,363 @@
+:root {
+    --verde-principal: #0B5D3B;
+    --verde-secundario: #4CAF50;
+    --naranja-acento: #E65100;
+    --crema-fondo: #FFF4E6;
+    --gris-texto: #333333;
+    --blanco-tarjeta: #FFFFFF;
+    --borde-suave: #E2D5C5;
+}
+
+/* Contenedor principal apilado en columna */
+.compras-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1.5rem;
+    background-color: var(--crema-fondo);
+    color: var(--gris-texto);
+}
+
+/* Pila de cards con separación uniforme */
+.compras-stack {
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Card principal coherente con Proveedor.css */
+.compras-card {
+    width: 100%;
+    background-color: var(--blanco-tarjeta);
+    border: 1px solid var(--borde-suave);
+    border-top: 5px solid var(--verde-principal);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 12px 28px rgba(11, 93, 59, 0.12);
+    box-sizing: border-box;
+}
+
+.compras-header-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.compras-header h1,
+.compras-header h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--verde-principal);
+    margin: 0 0 0.3rem 0;
+    letter-spacing: 0.3px;
+}
+
+.compras-header p {
+    font-size: 0.92rem;
+    color: var(--gris-texto);
+    opacity: 0.85;
+    margin: 0;
+}
+
+/* Botón principal de acción en naranja */
+.btn-agregar-compra {
+    padding: 0.8rem 1.35rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--naranja-acento);
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.12s ease;
+}
+
+.btn-agregar-compra:hover {
+    background-color: #c94700;
+    transform: translateY(-1px);
+}
+
+/* Tabla responsive y estilos coherentes con proveedores */
+.tabla-compras-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabla-compras {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+.tabla-compras th,
+.tabla-compras td {
+    padding: 0.75rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--borde-suave);
+}
+
+.tabla-compras th {
+    background-color: var(--crema-fondo);
+    color: var(--verde-principal);
+    font-weight: 700;
+}
+
+.tabla-compras tbody tr:hover {
+    background-color: #FFFCF8;
+}
+
+.tabla-compras-vacia {
+    text-align: center;
+    padding: 1.25rem;
+    color: #7a7a7a;
+}
+
+.badge-estado-compra {
+    display: inline-block;
+    padding: 0.22rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.badge-estado-compra.activa {
+    background-color: rgba(76, 175, 80, 0.16);
+    color: var(--verde-principal);
+}
+
+.badge-estado-compra.inactiva {
+    background-color: rgba(230, 81, 0, 0.14);
+    color: var(--naranja-acento);
+}
+
+/* Fondo oscuro semitransparente para el modal */
+.modal-compra-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+/* Contenedor desplazable del modal con los 3 cards */
+.modal-compra-contenido {
+    width: 100%;
+    max-width: 1120px;
+    max-height: 92vh;
+    overflow-y: auto;
+    background-color: var(--crema-fondo);
+    border: 1px solid var(--borde-suave);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.modal-compra-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background-color: var(--blanco-tarjeta);
+    border: 1px solid var(--borde-suave);
+    border-top: 5px solid var(--verde-principal);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+}
+
+.modal-compra-topbar h2 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--verde-principal);
+}
+
+.btn-cerrar-modal {
+    padding: 0.55rem 0.95rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--verde-principal);
+    background-color: transparent;
+    color: var(--verde-principal);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-cerrar-modal:hover {
+    background-color: var(--verde-principal);
+    color: #FFFFFF;
+}
+
+/* Sub-card dentro del modal */
+.card-modal-compra {
+    background-color: var(--blanco-tarjeta);
+    border: 1px solid var(--borde-suave);
+    border-top: 4px solid var(--verde-secundario);
+    border-radius: 14px;
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 8px 20px rgba(11, 93, 59, 0.08);
+}
+
+.card-modal-titulo {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--verde-principal);
+    padding-bottom: 0.45rem;
+    border-bottom: 1px solid var(--borde-suave);
+}
+
+.grid-modal-compra {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+}
+
+.campo-modal-compra {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
+}
+
+.campo-modal-compra label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gris-texto);
+}
+
+.campo-modal-compra input,
+.campo-modal-compra select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.68rem 0.8rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--borde-suave);
+    background-color: var(--crema-fondo);
+    color: var(--gris-texto);
+    font-family: inherit;
+    font-size: 0.92rem;
+}
+
+.campo-modal-compra input:focus,
+.campo-modal-compra select:focus {
+    outline: none;
+    background-color: #FFFFFF;
+    border-color: var(--verde-secundario);
+}
+
+.btn-secundario-modal {
+    padding: 0.65rem 1.1rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--verde-principal);
+    background-color: transparent;
+    color: var(--verde-principal);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-secundario-modal:hover {
+    background-color: var(--verde-principal);
+    color: #FFFFFF;
+}
+
+.btn-eliminar-detalle {
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    border: 1.5px solid var(--naranja-acento);
+    background-color: transparent;
+    color: var(--naranja-acento);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-eliminar-detalle:hover {
+    background-color: var(--naranja-acento);
+    color: #FFFFFF;
+}
+
+.resumen-modal-compra {
+    margin-left: auto;
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    background-color: #FFFCF8;
+    border: 1px solid var(--borde-suave);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+}
+
+.resumen-modal-fila {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.92rem;
+}
+
+.resumen-modal-fila.total {
+    border-top: 1px solid var(--borde-suave);
+    padding-top: 0.45rem;
+    margin-top: 0.2rem;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--verde-principal);
+}
+
+.acciones-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.msg-modal-error {
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
+    background-color: rgba(230, 81, 0, 0.12);
+    border: 1px solid var(--naranja-acento);
+    color: var(--naranja-acento);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.msg-modal-ok {
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
+    background-color: rgba(76, 175, 80, 0.15);
+    border: 1px solid var(--verde-secundario);
+    color: var(--verde-principal);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.btn-ver-detalle {
+    padding: 0.42rem 0.8rem;
+    border-radius: 7px;
+    border: 1.5px solid var(--verde-principal);
+    background-color: transparent;
+    color: var(--verde-principal);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-ver-detalle:hover {
+    background-color: var(--verde-principal);
+    color: #FFFFFF;
+}

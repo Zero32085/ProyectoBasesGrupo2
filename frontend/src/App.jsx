@@ -1,6 +1,7 @@
 import {useState} from "react";
 import TiendaClientes from "./pages/TiendaClientes";
-import Login from "./pages/Login";
+import Proveedor from "./pages/Proveedor";
+//import Compras from "./pages/Compras";
 
 export default function App() {
   const [usuarioActivo, setUsuarioActivo] = useState(null);
@@ -14,7 +15,7 @@ export default function App() {
   };
 
   if(!usuarioActivo){
-    return <Login onLoginSuccess={manejarLoginExitoso}/>;
+    return <Proveedor onLoginSuccess={manejarLoginExitoso}/>;
   }
 
   if(usuarioActivo.rol == "cliente"){

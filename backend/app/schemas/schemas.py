@@ -1,6 +1,6 @@
 from datetime import date, time, datetime
 from decimal import Decimal
-from typing import Annotated
+from typing import Annotated, Optional
 from pydantic import (
     BaseModel, ConfigDict, EmailStr, Field, model_validator,
 )
@@ -159,6 +159,7 @@ class DepartamentoOut(OutBase):
     Id_Pais: int
     nombre: str
     estado: int
+    pais: PaisOut | None = None
 
 class CiudadCreate(BaseModel):
     Id_Departamento: int
@@ -170,6 +171,7 @@ class CiudadOut(OutBase):
     Id_Departamento: int
     nombre: str
     estado: int
+    departamento: DepartamentoOut | None = None
 
 class DireccionCreate(BaseModel):
     Id_Ciudad: int
@@ -184,7 +186,7 @@ class DireccionOut(OutBase):
     colonia: str
     calle: str | None
     referencia: str
-    nombre_destinatario: str | None
+    ciudad: CiudadOut | None = None
 
 class SucursalCreate(BaseModel):
     Id_Direccion: int
@@ -198,6 +200,11 @@ class SucursalOut(OutBase):
     nombre_sucursal: str
     telefono: str
     estado: int
+
+class SucursalResumenOut(OutBase):
+    Id_Sucursal: int
+    nombre_sucursal: str
+
 
 class EmpleadoCreate(BaseModel):
     codigo_empleado: str = Field(min_length=1, max_length=10)
@@ -367,20 +374,24 @@ class ProductoOfertaOut(OutBase):
     Id_Productos: int
     Id_Oferta: int
 
+
 class ProveedorCreate(BaseModel):
-    Id_Direccion: int
+    direccion : DireccionCreate
     nombre_o_razonSocial: str = Field(min_length=1, max_length=100)
     rtn: str = Field(min_length=1, max_length=14)
     nombre_contacto: str = Field(min_length=1, max_length=50)
     correo: EmailStr | None = None
     estado: Estado = 1
+    telefonos: list[str]
 
 class ProveedorUpdate(BaseModel):
-    Id_Direccion: int | None = None
-    nombre_o_razonSocial: str | None = Field(default=None, min_length=1, max_length=100)
-    nombre_contacto: str | None = Field(default=None, min_length=1, max_length=50)
+    direccion : DireccionCreate
+    nombre_o_razonSocial: str = Field(min_length=1, max_length=100)
+    rtn: str = Field(min_length=1, max_length=14)
+    nombre_contacto: str = Field(min_length=1, max_length=50)
     correo: EmailStr | None = None
-    estado: Estado | None = None
+    estado: Estado = 1
+    telefonos: list[str]
 
 class ProveedorOut(OutBase):
     Id_Proveedor: int
@@ -391,6 +402,12 @@ class ProveedorOut(OutBase):
     correo: str | None
     fecha_Registro: datetime
     estado: int
+
+class ProveedorResumenOut(OutBase):
+    Id_Proveedor: int
+    nombre_o_razonSocial: str
+    rtn: str
+
 
 class TelefonoProveedorCreate(BaseModel):
     Id_Proveedor: int
@@ -403,11 +420,27 @@ class TelefonoProveedorOut(OutBase):
     telefono: str
     estado: int
 
+class ProveedorListadoOut(OutBase):
+    Id_Proveedor: int
+    Id_Direccion: int
+    nombre_o_razonSocial: str
+    rtn: str
+    nombre_contacto: str
+    correo: str | None
+    fecha_Registro: datetime
+    estado: int
+    direccion : DireccionOut | None = None
+    telefonos : list[TelefonoProveedorOut] = []
+
 class DetalleCompraCreate(BaseModel):
+# Datos del producto y su lote para cada línea de compra
     Id_Producto: int
-    cantidad: Decimal = Field(gt=0, max_digits=8, decimal_places=2)
-    precio_unitario: Dinero
-    descuento: Dinero | None = None
+    cantidad: Decimal = Field(..., gt=0)
+    precio_unitario: Decimal = Field(..., ge=0)
+    descuento: Decimal = Field(default=Decimal("0.00"), ge=0)
+    lote_codigo: str = Field(..., min_length=1, max_length=60)
+    fecha_fabricacion: Optional[date] = None
+    fecha_vencimiento: date
 
 class DetalleCompraOut(OutBase):
     Id_Detalle_Compras: int
@@ -422,6 +455,7 @@ class CompraCreate(BaseModel):
     Id_Proveedor: int
     Id_Sucursal: int
     numero_factura: str = Field(min_length=1, max_length=19)
+    estado: int = 1
     detalles: list[DetalleCompraCreate] = Field(min_length=1)
 
 class CompraOut(OutBase):
@@ -434,6 +468,10 @@ class CompraOut(OutBase):
     impuesto: Decimal
     total: Decimal
     estado: int
+    proveedor: ProveedorResumenOut | None = None
+    sucursal: SucursalResumenOut | None = None
+
+    model_config = ConfigDict(from_attributes=True)
 
 class CompraDetalleOut(CompraOut):
     detalles: list[DetalleCompraOut] = []
@@ -456,6 +494,35 @@ class LoteVencimientoOut(OutBase):
     lote_codigo: str
     fecha_fabricacion: date
     fecha_vencimiento: date
+
+class DetalleCompraItemOut(BaseModel):
+    # Representa una fila del detalle + su lote asociado
+    Id_Detalle_Compras: int
+    Id_Producto: int
+    nombre_producto: str
+    cantidad: Decimal
+    precio_unitario: Decimal
+    descuento: Decimal
+    subtotal_linea: Decimal
+    lote_codigo: str
+    fecha_fabricacion: Optional[date] = None
+    fecha_vencimiento: date
+
+    class Config:
+        from_attributes = True
+
+
+class CompraDetalleRespuestaOut(BaseModel):
+    # Cabecera de la compra + lista de detalles con lote
+    Id_Compra: int
+    Id_Proveedor: int
+    Id_Sucursal: int
+    numero_factura: str
+    subtotal: Decimal
+    impuesto: Decimal
+    total: Decimal
+    estado: int
+    detalles: list[DetalleCompraItemOut]
 
 class InventarioCreate(BaseModel):
     Id_Producto: int
