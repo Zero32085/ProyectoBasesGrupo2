@@ -47,6 +47,8 @@ class AuthResponse(OutBase):
     primer_apellido: str | None = None
     correo: str | None = None
     rol: str
+    Id_Empleado: int | None = None    
+    codigo_empleado: str | None = None
 
 
 class UserOut(BaseModel):
@@ -253,16 +255,16 @@ class CajaOut(OutBase):
     descripcion: str | None
     estado: int
 
-class SeccionCajaAbrir(BaseModel):
+class SesionCajaAbrir(BaseModel):
     Id_Caja: int
     Id_Empleado: int
     monto_inicial: Decimal = Field(default=Decimal("0"), ge=0, max_digits=10, decimal_places=2)
 
-class SeccionCajaCerrar(BaseModel):
+class SesionCajaCerrar(BaseModel):
     monto_contado: Decimal = Field(ge=0, max_digits=10, decimal_places=2)
 
-class SeccionCajaOut(OutBase):
-    Id_Seccion: int
+class SesionCajaOut(OutBase):
+    Id_Sesion: int
     Id_Caja: int
     Id_Empleado: int
     fecha_apertura: datetime
