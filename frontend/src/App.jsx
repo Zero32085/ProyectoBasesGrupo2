@@ -1,7 +1,6 @@
 import {useState} from "react";
 import TiendaClientes from "./pages/TiendaClientes";
 import Proveedor from "./pages/Proveedor";
-//import Compras from "./pages/Compras";
 
 export default function App() {
   const [usuarioActivo, setUsuarioActivo] = useState(null);

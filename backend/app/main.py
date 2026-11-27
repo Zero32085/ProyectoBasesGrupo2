@@ -1,7 +1,6 @@
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-#Agregue esto para traer los paises
 from app.schemas.schemas import (
 PaisOut, 
 DepartamentoOut, 
@@ -13,9 +12,6 @@ ProveedorUpdate,
 TelefonoProveedorOut,
 ProveedorOut,
 )
-
-
-from app.schemas.schemas import CompraOut, ProductoOut, SucursalOut, SucursalResumenOut, CompraCreate, CompraDetalleRespuestaOut
 
 
 from app.crud import crud
@@ -79,38 +75,3 @@ def editar_proveedor(id_proveedor: int, data: ProveedorUpdate, db: Session = Dep
 @app.delete("/proveedores/{id_proveedor}", status_code=status.HTTP_200_OK)
 def borrar_proveedor(id_proveedor: int, db: Session = Depends(get_db)):
     return crud.eliminar_proveedor(db, id_proveedor=id_proveedor)
-
-
-
-
-
-
-
-
-
-
-
-@app.get("/compras", response_model=list[CompraOut])
-def listar_compras(db: Session = Depends(get_db)):
-    # Devuelve el listado de compras registradas
-    return crud.obtener_compras(db)
-
-@app.get("/productos", response_model=list[ProductoOut])
-def listar_productos(db: Session = Depends(get_db)):
-    # Retorna la lista de productos para los selects del sistema
-    return crud.obtener_productos(db)
-
-@app.get("/sucursales", response_model=list[SucursalOut])
-def listar_sucursales(db: Session = Depends(get_db)):
-    # Retorna la lista de productos para los selects del sistema
-    return crud.obtener_sucursales(db)
-
-@app.post("/compras", response_model=CompraOut, status_code=status.HTTP_201_CREATED)
-def registrar_compra(datos: CompraCreate, db: Session = Depends(get_db)):
-    # Guarda compra, detalles, lote e inventario en una transacción
-    return crud.crear_compra(db, datos)
-
-@app.get("/compras/{id_compra}/detalle", response_model=CompraDetalleRespuestaOut)
-def ver_detalle_compra(id_compra: int, db: Session = Depends(get_db)):
-    # Devuelve los datos de la compra y sus detalles/lotes para el modal
-    return crud.obtener_compra_con_detalles(db, id_compra)

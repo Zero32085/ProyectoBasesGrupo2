@@ -1,0 +1,78 @@
+:root {
+    --bg-header: #FFF4E6;
+    --border-header: #E8D8C3;
+    --shadow-header: rgba(11, 93, 59, 0.12);
+
+    --bg-busc-input: #FFF4E6;
+    --bg-busc-input-focus: #F7E6CE;
+    --border-input: #0B5D3B;
+    --border-input-focus: #E65100;
+    --shadow-input-focus: rgba(230, 81, 0, 0.18);
+    --text-input: #333333;
+    --text-placeholder: rgba(51, 51, 51, 0.65);
+
+    --bg-badge: #0B5D3B;
+    --border-badge: #4CAF50;
+    --text-badge: #FFF4E6;
+}
+
+.tienda-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1.75rem;
+    background-color: var(--bg-header);
+    border-bottom: 2px solid var(--border-header);
+    box-shadow: 0 4px 12px var(--shadow-header);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 72px;
+    width: auto;
+    display: block;
+}
+
+.buscador-input {
+    flex: 1;
+    min-width: 220px;
+    max-width: 520px;
+    padding: 0.7rem 1.1rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--border-input);
+    background-color: var(--bg-busc-input);
+    color: var(--text-input);
+    font-size: 0.92rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.buscador-input::placeholder {
+    color: var(--text-placeholder);
+}
+
+.buscador-input:focus {
+    background-color: var(--bg-busc-input-focus);
+    border-color: var(--border-input-focus);
+    box-shadow: 0 0 0 3px var(--shadow-input-focus);
+}
+
+.rol-badge {
+    background-color: var(--bg-badge);
+    padding: 0.45rem 0.95rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-badge);
+    border: 1.5px solid var(--border-badge);
+    white-space: nowrap;
+}

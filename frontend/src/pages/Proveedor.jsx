@@ -25,7 +25,6 @@ export default function Proveedor() {
 //Leer 
   const [proveedores, setProveedores] = useState([]);
 
-//Boton Guardar, Actualizar y eliminar
   const [editandoId, setEditandoId] = useState(null);
   const [cargandoEdicion, setCargandoEdicion] = useState(false);
   const [eliminandoId, setEliminandoId] = useState(null);
@@ -139,7 +138,7 @@ useEffect(() => {
 
 //Telefonos
 
-const handleTelefonoChange = (index, valor) => {
+const TelefonoRegistro = (index, valor) => {
   const actualizados = [...telefonos];
   actualizados[index] = valor;
 
@@ -158,10 +157,9 @@ const handleTelefonoChange = (index, valor) => {
    setTelefonos(actualizados);
   };
 
-  //registrar proveedores
 
   const guardarProveedor = async (e) => {
-    e.preventDefault(); //previene que la pagina se recargue sola, para evitar borrar datos
+    e.preventDefault(); //previene que la pagina se recargue sola para evitar borrar datos
     setMensaje(""); //limpia mensajes de retroalimentacion
     setErrorMsg(""); 
 
@@ -209,7 +207,7 @@ const handleTelefonoChange = (index, valor) => {
       : `${API_URL}/proveedores`;
     const metodo = esEdicion ? "PUT" : "POST";
 
-    setEnviando(true); //para evitar el doble clic
+    setEnviando(true);
     try {
       const res = await fetch(url, {
         method: metodo,
@@ -393,7 +391,7 @@ async function iniciarEdicion(prov){
 }
 
 //Eliminar
-async function handleEliminarProveedor(prov) {
+async function EliminarProveedor(prov) {
   const confirmado = window.confirm(
     `¿Seguro que deseas eliminar permanentemente a "${prov.nombre_o_razonSocial}" (RTN: ${prov.rtn})? Esta acción no se puede deshacer.`
   );
@@ -414,7 +412,7 @@ async function handleEliminarProveedor(prov) {
       throw new Error(data.detail || "No se pudo eliminar el proveedor");
     }
 
-    // Si estabas editando justo ese proveedor, limpia el formulario
+    // Si estaba editando ese proveedor, limpia el formulario
     if (editandoId === prov.Id_Proveedor) {
       limpiarCamposProveedores();
     }
@@ -501,7 +499,7 @@ async function handleEliminarProveedor(prov) {
                     id={`telefono-prov-${index}`}
                     type="text"
                     value={telefono}
-                    onChange={(e) => handleTelefonoChange(index, e.target.value)}
+                    onChange={(e) => TelefonoRegistro(index, e.target.value)}
                     placeholder={index === 0 ? "Telefono del proveedor" : "Otro telefono (opcional)"}
                     required={index === 0}
                   />
@@ -744,7 +742,7 @@ async function handleEliminarProveedor(prov) {
                                       type="button"
                                       className="btn-eliminar-fila"
                                       disabled={eliminandoId === prov.Id_Proveedor}
-                                      onClick={() => handleEliminarProveedor(prov)}
+                                      onClick={() => EliminarProveedor(prov)}
                                     >
                                       {eliminandoId === prov.Id_Proveedor ? "Eliminando..." : "Eliminar"}
                                     </button>

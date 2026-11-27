@@ -1,3 +1,4 @@
+-- Active: 1794772925326@@127.0.0.1@5432@ProyectoSuper
 INSERT INTO Personas 
 (   dni,
     primer_nombre,
@@ -258,4 +259,516 @@ INSERT INTO Empleados (
 ('EMP019', 19, 18000.00,'2026-11-20',19,19,19),
 ('EMP020', 20, 21000.00,'2022-03-10',20,20,20)
 
-select * from Personas;
+INSERT INTO Proveedores (
+    Id_Direccion, nombre_o_razonSocial, rtn, nombre_contacto, correo, estado
+) VALUES
+(1, 'Lacthosa S.A.', '08019001123456', 'Carlos Mejía', 'ventas@lacthosa.hn', 1),
+(2, 'Corporación Dinant', '08019002234567', 'Sofía Rivera', 'contacto@dinant.com', 1),
+(3, 'Embotelladora de Sula', '05019003345678', 'Mario Zelaya', 'pedidos@emsula.hn', 1),
+(4, 'Distribuidora del Istmo', '08019004456789', 'Elena Castro', 'info@dististmo.hn', 1),
+(5, 'Alimentos Maravilla', '08019005567890', 'David Flores', 'compras@maravilla.hn', 1),
+(6, 'Panificadora Nacional', '08019006678901', 'Patricia Paz', 'ventas@pannacional.hn', 1),
+(7, 'Higiene y Hogar S. de R.L.', '08019007789012', 'Óscar Núñez', 'clientes@higienehogar.hn', 1),
+(8, 'Agroindustrial del Valle', '05019008890123', 'Raquel Molina', 'agro@valle.hn', 1),
+(9, 'Importadora Central', '08019009901234', 'Andrés Reyes', 'import@central.hn', 1),
+(10, 'Avícola Centroamericana', '08019010112233', 'Lucía Vargas', 'avicola@ca.hn', 1),
+(11, 'Lácteos del Norte', '05019011223344', 'Héctor Gómez', 'norte@lacteos.hn', 1),
+(12, 'Bebidas Refrescantes S.A.', '08019012334455', 'Karla Ortiz', 'bebidas@refrescantes.hn', 1),
+(13, 'Snacks y Más', '08019013445566', 'Diego Herrera', 'snacks@ymas.hn', 1),
+(14, 'Cuidado Total Honduras', '08019014556677', 'Valeria Cruz', 'cuidadototal@hn.com', 1),
+(15, 'Comercializadora del Sur', '06019015667788', 'Julio Aguilar', 'sur@comercializadora.hn', 1),
+(16, 'Granos Básicos de Honduras', '08019016778899', 'Marta Pineda', 'granos@honduras.hn', 1),
+(17, 'Licores Finos S.A.', '08019017889900', 'Fernando Díaz', 'licores@finos.hn', 1),
+(18, 'Mascotas Felices HN', '08019018990011', 'Paola Figueroa', 'mascotas@felices.hn', 1),
+(19, 'Papelera y Empaques', '08019019101112', 'Roberto Medina', 'empaques@papelera.hn', 1),
+(20, 'Dulcería San José', '08019020121314', 'Andrea Espinoza', 'dulceria@sanjose.hn', 1);
+
+INSERT INTO Telefonos_Proveedores (Id_Proveedor, telefono, estado) VALUES
+(1, '22401001', 1),
+(1, '98401001', 1),
+(2, '22401002', 1),
+(3, '25501003', 1),
+(4, '22401004', 1),
+(5, '22401005', 1),
+(6, '22401006', 1),
+(7, '22401007', 1),
+(8, '25501008', 1),
+(9, '22401009', 1),
+(10, '22401010', 1),
+(11, '25501011', 1),
+(12, '22401012', 1),
+(13, '22401013', 1),
+(14, '22401014', 1),
+(15, '27801015', 1),
+(16, '22401016', 1),
+(17, '22401017', 1),
+(18, '22401018', 1),
+(19, '22401019', 1);
+
+INSERT INTO Categorias (nombre, descripcion, estado) VALUES
+('Lácteos', 'Leche, quesos, mantequilla y yogures', 1),
+('Carnes y Aves', 'Res, cerdo, pollo y cortes frescos', 1),
+('Frutas y Verduras', 'Productos agrícolas frescos de temporada', 1),
+('Panadería y Repostería', 'Pan dulce, pan molde, pasteles y galletas', 1),
+('Bebidas', 'Refrescos, jugos, agua embotellada y café', 1),
+('Abarrotes', 'Arroz, frijoles, azúcar, aceite y pastas', 1),
+('Enlatados y Conservas', 'Salsas, atún, vegetales y sopas en lata', 1),
+('Snacks y Dulces', 'Churros, chocolates, caramelos y frituras', 1),
+('Cuidado Personal', 'Jabones, champú, pasta dental y desodorantes', 1),
+('Limpieza del Hogar', 'Detergentes, cloro, desinfectantes y suavizantes', 1),
+('Congelados', 'Helados, vegetales congelados y comidas listas', 1),
+('Embutidos', 'Jamón, salchichas, chorizos y tocino', 1),
+('Cereales y Desayuno', 'Avena, hojuelas de maíz, miel y mermeladas', 1),
+('Condimentos y Salsas', 'Especias, consomé, aderezos y vinagres', 1),
+('Mascotas', 'Alimento y accesorios para perros y gatos', 1),
+('Bebés', 'Pañales, toallas húmedas y papillas', 1),
+('Desechables', 'Platos, vasos, servilletas y bolsas', 1),
+('Hogar y Cocina', 'Utensilios básicos, esponjas y focos', 1),
+('Licores y Cervezas', 'Cervezas, vinos y bebidas de graduación', 1),
+('Temporada', 'Artículos de temporada y escolares', 1);
+
+INSERT INTO Marcas (nombre, pais_origen, estado) VALUES
+('Sula', 'Honduras', 1),
+('Leyde', 'Honduras', 1),
+('Cargill', 'Estados Unidos', 1),
+('Nestlé', 'Suiza', 1),
+('Coca-Cola', 'Estados Unidos', 1),
+('Pepsi', 'Estados Unidos', 1),
+('Bimbo', 'México', 1),
+('Unilever', 'Reino Unido', 1),
+('Colgate', 'Estados Unidos', 1),
+('Diana', 'El Salvador', 1),
+('Maggi', 'Suiza', 1),
+('Del Monte', 'Estados Unidos', 1),
+('Yummies', 'Honduras', 1),
+('Zambo', 'Honduras', 1),
+('Clorox', 'Estados Unidos', 1),
+('Procter & Gamble', 'Estados Unidos', 1),
+('Maseca', 'México', 1),
+('Lala', 'México', 1),
+('Flor de Caña', 'Nicaragua', 1),
+('Corona', 'México', 1);
+
+INSERT INTO Productos (
+    Id_Sucursal, Id_Categoria, Id_Marca, cod_barra, nombre, descripcion,
+    stock_minimo, stock_maximo, precio, costo, porcentaje_isv, estado
+) VALUES
+(1, 1, 1, '7421000000011', 'Leche Entera Bolsa 1L', 'Leche pasteurizada entera', 20.00, 300.00, 27.50, 22.00, 0.00, 1),
+(2, 1, 2, '7421000000028', 'Queso Semiseco Libra', 'Queso fresco semiseco', 15.00, 200.00, 72.00, 58.00, 15.00, 1),
+(3, 2, 3, '7421000000035', 'Pollo Entero Fresco Libra', 'Pollo fresco beneficiado', 20.00, 250.00, 41.00, 32.00, 0.00, 1),
+(4, 3, 8, '7421000000042', 'Banano Madurito Unidad', 'Banano fresco nacional', 50.00, 800.00, 2.50, 1.50, 0.00, 1),
+(5, 4, 7, '7421000000059', 'Pan Blanco Grande', 'Pan de molde blanco', 15.00, 180.00, 48.00, 38.00, 15.00, 1),
+(1, 5, 5, '7421000000066', 'Coca-Cola 2.5 Litros', 'Refresco carbonatado botella', 25.00, 400.00, 54.00, 42.00, 15.00, 1),
+(6, 5, 6, '7421000000073', 'Pepsi 2.5 Litros', 'Refresco de cola botella', 20.00, 350.00, 50.00, 39.00, 15.00, 1),
+(2, 6, 17, '7421000000080', 'Arroz Blanco Precocido Libra', 'Arroz grano largo', 40.00, 600.00, 19.00, 14.00, 0.00, 1),
+(3, 6, 17, '7421000000097', 'Frijoles Rojos Seleccionados Libra', 'Frijol rojo de cosecha', 30.00, 500.00, 32.00, 24.00, 0.00, 1),
+(4, 7, 12, '7421000000103', 'Atún en Agua Lata 170g', 'Atún trozos en agua', 20.00, 300.00, 34.00, 25.00, 15.00, 1),
+(5, 8, 13, '7421000000110', 'Churros Rancheros Bolsa Mediana', 'Snack horneado sabor queso', 25.00, 350.00, 17.00, 12.00, 15.00, 1),
+(6, 9, 9, '7421000000127', 'Pasta Dental Triple Acción 100ml', 'Crema dental protección', 15.00, 220.00, 46.00, 35.00, 15.00, 1),
+(7, 10, 15, '7421000000134', 'Cloro Original Galón', 'Blanqueador líquido desinfectante', 15.00, 200.00, 58.00, 45.00, 15.00, 1),
+(7, 11, 18, '7421000000141', 'Helado Vainilla 1 Litro', 'Postre congelado sabor vainilla', 10.00, 120.00, 85.00, 65.00, 15.00, 1),
+(8, 12, 3, '7421000000158', 'Jamón de Pavo Paquete 250g', 'Jamón cocido de pavo', 15.00, 180.00, 62.00, 48.00, 15.00, 1),
+(8, 13, 4, '7421000000165', 'Avena en Hojuelas Bolsa 400g', 'Avena integral para desayuno', 20.00, 250.00, 37.00, 28.00, 0.00, 1),
+(9, 14, 11, '7421000000172', 'Consomé de Pollo Caja 24 Cubos', 'Sazonador en cubos', 25.00, 300.00, 47.00, 36.00, 15.00, 1),
+(9, 15, 4, '7421000000189', 'Alimento para Perro Adulto 2kg', 'Croquetas balanceadas para perro', 10.00, 140.00, 125.00, 95.00, 15.00, 1),
+(10, 16, 16, '7421000000196', 'Pañales Etapa 3 Paquete 20u', 'Pañales desechables absorbentes', 12.00, 160.00, 142.00, 110.00, 15.00, 1),
+(10, 19, 20, '7421000000202', 'Cerveza Corona Botella 355ml', 'Cerveza clara botella', 30.00, 400.00, 38.00, 28.00, 18.00, 1);
+
+INSERT INTO Compras (
+    Id_Proveedor, Id_Sucursal, fecha_compra, numero_factura,
+    subtotal, impuesto, total, estado
+) VALUES
+(1, 1, '2026-10-20 09:00:00', '000-001-01-00000101', 2200.00, 0.00, 2200.00, 1),
+(2, 2, '2026-10-21 09:30:00', '000-001-01-00000102', 2400.00, 360.00, 2760.00, 1),
+(3, 1, '2026-10-22 10:00:00', '000-001-01-00000103', 4200.00, 630.00, 4830.00, 1),
+(4, 4, '2026-10-23 10:15:00', '000-001-01-00000104', 2500.00, 375.00, 2875.00, 1),
+(5, 5, '2026-10-24 11:00:00', '000-001-01-00000105', 1400.00, 210.00, 1610.00, 1),
+(6, 5, '2026-10-25 11:20:00', '000-001-01-00000106', 1900.00, 285.00, 2185.00, 1),
+(7, 7, '2026-10-26 12:00:00', '000-001-01-00000107', 2700.00, 405.00, 3105.00, 1),
+(8, 4, '2026-10-27 12:30:00', '000-001-01-00000108', 1500.00, 0.00, 1500.00, 1),
+(9, 9, '2026-10-28 13:00:00', '000-001-01-00000109', 1800.00, 270.00, 2070.00, 1),
+(10, 3, '2026-10-29 13:45:00', '000-001-01-00000110', 3200.00, 0.00, 3200.00, 1),
+(11, 2, '2026-10-30 14:00:00', '000-001-01-00000111', 2900.00, 435.00, 3335.00, 1),
+(12, 6, '2026-11-01 08:30:00', '000-001-01-00000112', 1950.00, 292.50, 2242.50, 1),
+(13, 5, '2026-11-02 09:15:00', '000-001-01-00000113', 1200.00, 180.00, 1380.00, 1),
+(14, 6, '2026-11-03 10:10:00', '000-001-01-00000114', 1750.00, 262.50, 2012.50, 1),
+(15, 10, '2026-11-04 11:05:00', '000-001-01-00000115', 2200.00, 330.00, 2530.00, 1),
+(16, 2, '2026-11-05 12:40:00', '000-001-01-00000116', 2100.00, 0.00, 2100.00, 1),
+(17, 10, '2026-11-06 14:20:00', '000-001-01-00000117', 2800.00, 504.00, 3304.00, 1),
+(18, 9, '2026-11-07 15:00:00', '000-001-01-00000118', 1900.00, 285.00, 2185.00, 1),
+(19, 7, '2026-11-08 15:30:00', '000-001-01-00000119', 1950.00, 292.50, 2242.50, 1),
+(20, 3, '2026-11-09 16:00:00', '000-001-01-00000120', 1440.00, 0.00, 1440.00, 1);
+
+INSERT INTO Detalle_Compras (
+    Id_Compra, Id_Producto, cantidad, precio_unitario, descuento, subtotal_linea
+) VALUES
+(1, 1, 100.00, 22.00, 0.00, 2200.00),
+(2, 15, 50.00, 48.00, 0.00, 2400.00),
+(3, 6, 100.00, 42.00, 0.00, 4200.00),
+(4, 10, 100.00, 25.00, 0.00, 2500.00),
+(5, 11, 100.00, 14.00, 0.00, 1400.00),
+(6, 5, 50.00, 38.00, 0.00, 1900.00),
+(7, 13, 60.00, 45.00, 0.00, 2700.00),
+(8, 4, 1000.00, 1.50, 0.00, 1500.00),
+(9, 17, 50.00, 36.00, 0.00, 1800.00),
+(10, 3, 100.00, 32.00, 0.00, 3200.00),
+(11, 2, 50.00, 58.00, 0.00, 2900.00),
+(12, 7, 50.00, 39.00, 0.00, 1950.00),
+(13, 11, 100.00, 12.00, 0.00, 1200.00),
+(14, 12, 50.00, 35.00, 0.00, 1750.00),
+(15, 19, 20.00, 110.00, 0.00, 2200.00),
+(16, 8, 150.00, 14.00, 0.00, 2100.00),
+(17, 20, 100.00, 28.00, 0.00, 2800.00),
+(18, 18, 20.00, 95.00, 0.00, 1900.00),
+(19, 14, 30.00, 65.00, 0.00, 1950.00),
+(20, 9, 60.00, 24.00, 0.00, 1440.00);
+
+INSERT INTO Lotes_Vencimiento (
+    Id_DetalleCompra, lote_codigo, fecha_fabricacion, fecha_vencimiento
+) VALUES
+(1, 'LOT-2026-001', '2026-10-15', '2026-12-15'),
+(2, 'LOT-2026-002', '2026-10-10', '2027-01-10'),
+(3, 'LOT-2026-003', '2026-09-01', '2027-06-01'),
+(4, 'LOT-2026-004', '2026-08-15', '2028-08-15'),
+(5, 'LOT-2026-005', '2026-10-01', '2027-04-01'),
+(6, 'LOT-2026-006', '2026-10-20', '2026-12-05'),
+(7, 'LOT-2026-007', '2026-07-10', '2028-07-10'),
+(8, 'LOT-2026-008', '2026-10-24', '2026-12-10'),
+(9, 'LOT-2026-009', '2026-09-12', '2027-09-12'),
+(10, 'LOT-2026-010', '2026-10-25', '2026-12-12'),
+(11, 'LOT-2026-011', '2026-10-18', '2026-12-28'),
+(12, 'LOT-2026-012', '2026-09-05', '2027-05-05'),
+(13, 'LOT-2026-013', '2026-10-05', '2027-03-05'),
+(14, 'LOT-2026-014', '2026-08-01', '2029-08-01'),
+(15, 'LOT-2026-015', '2026-09-20', '2029-09-20'),
+(16, 'LOT-2026-016', '2026-10-01', '2027-10-01'),
+(17, 'LOT-2026-017', '2026-09-15', '2027-09-15'),
+(18, 'LOT-2026-018', '2026-09-10', '2027-12-10'),
+(19, 'LOT-2026-019', '2026-10-01', '2027-06-01'),
+(20, 'LOT-2026-020', '2026-10-02', '2027-10-02');
+
+INSERT INTO Inventarios (
+    Id_Producto, Id_Sucursal, id_lote_vencimiento, stock_actual
+) VALUES
+(1, 1, 1, 100.00),
+(15, 2, 2, 50.00),
+(6, 1, 3, 100.00),
+(10, 4, 4, 100.00),
+(11, 5, 5, 100.00),
+(5, 5, 6, 50.00),
+(13, 7, 7, 60.00),
+(4, 4, 8, 1000.00),
+(17, 9, 9, 50.00),
+(3, 3, 10, 100.00),
+(2, 2, 11, 50.00),
+(7, 6, 12, 50.00),
+(11, 5, 13, 100.00),
+(12, 6, 14, 50.00),
+(19, 10, 15, 20.00),
+(8, 2, 16, 150.00),
+(20, 10, 17, 100.00),
+(18, 9, 18, 20.00),
+(14, 7, 19, 30.00),
+(9, 3, 20, 60.00);
+
+INSERT INTO Autorizaciones_SAR (
+    id_sucursal, cai, fecha_limite_emision, rango_inicial,
+    rango_final, correlativo_actual, estado
+) VALUES
+(1, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-01', '2027-06-30', '000-001-01-00000001', '000-001-01-00005000', 20, 1),
+(2, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-02', '2027-06-30', '000-002-01-00000001', '000-002-01-00005000', 20, 1),
+(3, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-03', '2027-06-30', '000-003-01-00000001', '000-003-01-00005000', 20, 1),
+(4, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-04', '2027-06-30', '000-004-01-00000001', '000-004-01-00005000', 20, 1),
+(5, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-05', '2027-06-30', '000-005-01-00000001', '000-005-01-00005000', 20, 1),
+(6, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-06', '2027-06-30', '000-006-01-00000001', '000-006-01-00005000', 20, 1),
+(7, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-07', '2027-06-30', '000-007-01-00000001', '000-007-01-00005000', 20, 1),
+(8, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-08', '2027-06-30', '000-008-01-00000001', '000-008-01-00005000', 20, 1),
+(9, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-09', '2027-06-30', '000-009-01-00000001', '000-009-01-00005000', 20, 1),
+(10, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-10', '2027-06-30', '000-010-01-00000001', '000-010-01-00005000', 20, 1),
+(11, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-11', '2027-06-30', '000-011-01-00000001', '000-011-01-00005000', 1, 1),
+(12, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-12', '2027-06-30', '000-012-01-00000001', '000-012-01-00005000', 1, 1),
+(13, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-13', '2027-06-30', '000-013-01-00000001', '000-013-01-00005000', 1, 1),
+(14, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-14', '2027-06-30', '000-014-01-00000001', '000-014-01-00005000', 1, 1),
+(15, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-15', '2027-06-30', '000-015-01-00000001', '000-015-01-00005000', 1, 1),
+(16, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-16', '2027-06-30', '000-016-01-00000001', '000-016-01-00005000', 1, 1),
+(17, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-17', '2027-06-30', '000-017-01-00000001', '000-017-01-00005000', 1, 1),
+(18, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-18', '2027-06-30', '000-018-01-00000001', '000-018-01-00005000', 1, 1),
+(19, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-19', '2027-06-30', '000-019-01-00000001', '000-019-01-00005000', 1, 1),
+(20, 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-20', '2027-06-30', '000-020-01-00000001', '000-020-01-00005000', 1, 1);
+
+INSERT INTO Facturas (
+    Id_Sucursal, Id_Cliente, Id_Empleado, Id_autorizacion_sar,
+    numero_factura, cai, fecha_emision,
+    subtotal_exento, subtotal_gravado_15, subtotal_gravado_18,
+    isv_15, isv_18, impuesto_total, descuento_total, total_pagar,
+    numero_orden_compra_exenta, numero_constancia_registro_exonerado, estado
+) VALUES
+(1, 1, 5, 1, '000-001-01-00000001', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-01', '2026-11-01 09:15:00', 55.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 55.00, NULL, NULL, 1),
+(1, 2, 5, 1, '000-001-01-00000002', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-01', '2026-11-01 10:30:00', 0.00, 108.00, 0.00, 16.20, 0.00, 16.20, 0.00, 124.20, NULL, NULL, 1),
+(2, 3, 5, 2, '000-002-01-00000001', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-02', '2026-11-02 11:05:00', 0.00, 144.00, 0.00, 21.60, 0.00, 21.60, 0.00, 165.60, NULL, NULL, 1),
+(2, 4, 5, 2, '000-002-01-00000002', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-02', '2026-11-02 14:20:00', 190.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 190.00, NULL, NULL, 1),
+(3, 5, 5, 3, '000-003-01-00000001', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-03', '2026-11-03 15:45:00', 164.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 164.00, NULL, NULL, 1),
+(3, 6, 5, 3, '000-003-01-00000002', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-03', '2026-11-03 16:10:00', 160.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 160.00, NULL, NULL, 1),
+(4, 7, 5, 4, '000-004-01-00000001', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-04', '2026-11-04 08:50:00', 125.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 125.00, NULL, NULL, 1),
+(4, 8, 5, 4, '000-004-01-00000002', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-04', '2026-11-04 12:00:00', 0.00, 170.00, 0.00, 25.50, 0.00, 25.50, 0.00, 195.50, NULL, NULL, 1),
+(5, 9, 5, 5, '000-005-01-00000001', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-05', '2026-11-05 13:25:00', 0.00, 144.00, 0.00, 21.60, 0.00, 21.60, 0.00, 165.60, NULL, NULL, 1),
+(5, 10, 5, 5, '000-005-01-00000002', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-05', '2026-11-05 17:40:00', 0.00, 85.00, 0.00, 12.75, 0.00, 12.75, 0.00, 97.75, NULL, NULL, 1),
+(6, 11, 5, 6, '000-006-01-00000001', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-06', '2026-11-06 09:40:00', 0.00, 150.00, 0.00, 22.50, 0.00, 22.50, 0.00, 172.50, NULL, NULL, 1),
+(6, 12, 5, 6, '000-006-01-00000002', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-06', '2026-11-06 11:55:00', 0.00, 138.00, 0.00, 20.70, 0.00, 20.70, 0.00, 158.70, NULL, NULL, 1),
+(7, 13, 5, 7, '000-007-01-00000001', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-07', '2026-11-07 10:15:00', 0.00, 116.00, 0.00, 17.40, 0.00, 17.40, 0.00, 133.40, NULL, NULL, 1),
+(7, 14, 5, 7, '000-007-01-00000002', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-07', '2026-11-07 16:30:00', 0.00, 170.00, 0.00, 25.50, 0.00, 25.50, 0.00, 195.50, NULL, NULL, 1),
+(8, 15, 5, 8, '000-008-01-00000001', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-08', '2026-11-08 12:20:00', 0.00, 124.00, 0.00, 18.60, 0.00, 18.60, 0.00, 142.60, NULL, NULL, 1),
+(8, 16, 5, 8, '000-008-01-00000002', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-08', '2026-11-08 18:05:00', 111.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 111.00, NULL, NULL, 1),
+(9, 17, 5, 9, '000-009-01-00000001', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-09', '2026-11-09 09:05:00', 0.00, 141.00, 0.00, 21.15, 0.00, 21.15, 0.00, 162.15, NULL, NULL, 1),
+(9, 18, 5, 9, '000-009-01-00000002', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-09', '2026-11-09 15:10:00', 0.00, 250.00, 0.00, 37.50, 0.00, 37.50, 0.00, 287.50, NULL, NULL, 1),
+(10, 19, 5, 10, '000-010-01-00000001', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-10', '2026-11-10 11:45:00', 0.00, 284.00, 0.00, 42.60, 0.00, 42.60, 0.00, 326.60, NULL, NULL, 1),
+(10, 20, 5, 10, '000-010-01-00000002', 'A1B2C3-D4E5F6-G7H8I9-J0K1L2-M3N4O5-10', '2026-11-10 19:20:00', 0.00, 0.00, 152.00, 0.00, 27.36, 27.36, 0.00, 179.36, NULL, NULL, 1);
+
+INSERT INTO Detalle_Facturas (
+    Id_Factura, Id_Producto, cantidad, precio_unitario,
+    descuento_linea, impuesto_linea, subtotal_linea
+) VALUES
+(1, 1, 2.00, 27.50, 0.00, 0.00, 55.00),
+(2, 6, 2.00, 54.00, 0.00, 16.20, 108.00),
+(3, 2, 2.00, 72.00, 0.00, 21.60, 144.00),
+(4, 8, 10.00, 19.00, 0.00, 0.00, 190.00),
+(5, 3, 4.00, 41.00, 0.00, 0.00, 164.00),
+(6, 9, 5.00, 32.00, 0.00, 0.00, 160.00),
+(7, 4, 50.00, 2.50, 0.00, 0.00, 125.00),
+(8, 10, 5.00, 34.00, 0.00, 25.50, 170.00),
+(9, 5, 3.00, 48.00, 0.00, 21.60, 144.00),
+(10, 11, 5.00, 17.00, 0.00, 12.75, 85.00),
+(11, 7, 3.00, 50.00, 0.00, 22.50, 150.00),
+(12, 12, 3.00, 46.00, 0.00, 20.70, 138.00),
+(13, 13, 2.00, 58.00, 0.00, 17.40, 116.00),
+(14, 14, 2.00, 85.00, 0.00, 25.50, 170.00),
+(15, 15, 2.00, 62.00, 0.00, 18.60, 124.00),
+(16, 16, 3.00, 37.00, 0.00, 0.00, 111.00),
+(17, 17, 3.00, 47.00, 0.00, 21.15, 141.00),
+(18, 18, 2.00, 125.00, 0.00, 37.50, 250.00),
+(19, 19, 2.00, 142.00, 0.00, 42.60, 284.00),
+(20, 20, 4.00, 38.00, 0.00, 27.36, 152.00);
+
+INSERT INTO Metodos_Pagos (nombre, descripcion, estado) VALUES
+('Efectivo', 'Pago en billetes y monedas de lempiras', 1),
+('Tarjeta de Débito', 'Pago mediante tarjeta de débito en POS', 1),
+('Tarjeta de Crédito', 'Pago mediante tarjeta de crédito en POS', 1),
+('Transferencia Bancaria', 'Transferencia electrónica interbancaria', 1),
+('Pago Móvil', 'Billetera electrónica o banca móvil', 1),
+('Vale de Alimentación', 'Cupón o vale corporativo para alimentos', 1),
+('Nota de Crédito', 'Saldo a favor aplicado a factura', 1),
+('Cheque Corporativo', 'Cheque empresarial autorizado', 1),
+('Dólares Estadounidenses', 'Pago en efectivo en USD al tipo de cambio', 1),
+('QR Bancario', 'Pago escaneando código QR en caja', 1),
+('Puntos de Lealtad', 'Canje de puntos acumulados del cliente', 1),
+('Débito Automático', 'Cargo programado a cuenta afiliada', 1),
+('Enlace de Pago', 'Pago en línea para pedidos web', 1),
+('Contra Entrega Efectivo', 'Pago en efectivo al recibir pedido a domicilio', 1),
+('Contra Entrega POS', 'Pago con tarjeta portátil al recibir pedido', 1),
+('Gift Card', 'Tarjeta de regalo Valora', 1),
+('Convenio Empresarial', 'Facturación a crédito para empresas convenio', 1),
+('Bono Solidario', 'Bono o subsidio autorizado', 1),
+('Pago Mixto', 'Combinación de dos o más métodos de pago', 1),
+('Depósito Bancario', 'Comprobante de depósito en cuenta', 1);
+
+INSERT INTO Tarjetas (
+    Id_Cliente, nombre_titular, final_tarjeta, mes, anio, marca, token_generado, estado
+) VALUES
+(1, 'CARLOS A MARTINEZ', '1001', 12, 2028, 'VISA', 'tok_valora_000001', 1),
+(2, 'MARIA F GOMEZ', '1002', 10, 2027, 'MASTERCARD', 'tok_valora_000002', 1),
+(3, 'JOSE A RODRIGUEZ', '1003', 5, 2029, 'VISA', 'tok_valora_000003', 1),
+(4, 'JENNIFER G BENITEZ', '1004', 8, 2027, 'AMEX', 'tok_valora_000004', 1),
+(5, 'ANA L HERNANDEZ', '1005', 3, 2028, 'VISA', 'tok_valora_000005', 1),
+(6, 'LUIS F PEREZ', '1006', 11, 2026, 'MASTERCARD', 'tok_valora_000006', 1),
+(7, 'SOFIA I RAMIREZ', '1007', 7, 2029, 'VISA', 'tok_valora_000007', 1),
+(8, 'PEDRO E SANCHEZ', '1008', 9, 2027, 'MASTERCARD', 'tok_valora_000008', 1),
+(9, 'DANIELA A CRUZ', '1009', 1, 2028, 'VISA', 'tok_valora_000009', 1),
+(10, 'MIGUEL A DIAZ', '1010', 6, 2029, 'VISA', 'tok_valora_000010', 1),
+(11, 'VALERIA G MORALES', '1011', 4, 2027, 'MASTERCARD', 'tok_valora_000011', 1),
+(12, 'JORGE E ALVARADO', '1012', 2, 2028, 'VISA', 'tok_valora_000012', 1),
+(13, 'CAMILA A ORTIZ', '1013', 8, 2029, 'MASTERCARD', 'tok_valora_000013', 1),
+(14, 'RICARDO D CASTILLO', '1014', 10, 2027, 'VISA', 'tok_valora_000014', 1),
+(15, 'GABRIELA S BENITEZ', '1015', 12, 2028, 'VISA', 'tok_valora_000015', 1),
+(16, 'FERNANDO J MENDOZA', '1016', 5, 2027, 'MASTERCARD', 'tok_valora_000016', 1),
+(17, 'PAOLA M REYES', '1017', 7, 2028, 'VISA', 'tok_valora_000017', 1),
+(18, 'OSCAR D FLORES', '1018', 11, 2029, 'MASTERCARD', 'tok_valora_000018', 1),
+(19, 'NATALIA B GARCIA', '1019', 9, 2027, 'VISA', 'tok_valora_000019', 1),
+(20, 'ROBERTO A PAZ', '1020', 3, 2029, 'VISA', 'tok_valora_000020', 1);
+
+INSERT INTO Pagos_Facturas (
+    Id_Factura, Id_Metodo_Pago, Id_Tarjeta, monto_pagado, referencia_transaccion, fecha_pago
+) VALUES
+(1, 1, NULL, 55.00, NULL, '2026-11-01 09:16:00'),
+(2, 2, 2, 124.20, 'REF-POS-000002', '2026-11-01 10:31:00'),
+(3, 3, 3, 165.60, 'REF-POS-000003', '2026-11-02 11:06:00'),
+(4, 1, NULL, 190.00, NULL, '2026-11-02 14:21:00'),
+(5, 4, NULL, 164.00, 'TRF-BNK-000005', '2026-11-03 15:46:00'),
+(6, 2, 6, 160.00, 'REF-POS-000006', '2026-11-03 16:11:00'),
+(7, 1, NULL, 125.00, NULL, '2026-11-04 08:51:00'),
+(8, 5, NULL, 195.50, 'MOV-000008', '2026-11-04 12:01:00'),
+(9, 1, NULL, 165.60, NULL, '2026-11-05 13:26:00'),
+(10, 3, 10, 97.75, 'REF-POS-000010', '2026-11-05 17:41:00'),
+(11, 2, 11, 172.50, 'REF-POS-000011', '2026-11-06 09:41:00'),
+(12, 1, NULL, 158.70, NULL, '2026-11-06 11:56:00'),
+(13, 1, NULL, 133.40, NULL, '2026-11-07 10:16:00'),
+(14, 2, 14, 195.50, 'REF-POS-000014', '2026-11-07 16:31:00'),
+(15, 1, NULL, 142.60, NULL, '2026-11-08 12:21:00'),
+(16, 3, 16, 111.00, 'REF-POS-000016', '2026-11-08 18:06:00'),
+(17, 1, NULL, 162.15, NULL, '2026-11-09 09:06:00'),
+(18, 2, 18, 287.50, 'REF-POS-000018', '2026-11-09 15:11:00'),
+(19, 3, 19, 326.60, 'REF-POS-000019', '2026-11-10 11:46:00'),
+(20, 1, NULL, 179.36, NULL, '2026-11-10 19:21:00');
+
+INSERT INTO Ofertas (
+    nombre, descripcion, porcentaje_descuento, fecha_inicio, fecha_fin, estado
+) VALUES
+('Oferta Lácteos 10%', 'Descuento en lácteos seleccionados', 0.10, '2026-11-01 00:00:00', '2026-11-30 23:59:59', 1),
+('Fin de Semana Bebidas', 'Descuento especial en refrescos', 0.15, '2026-11-06 00:00:00', '2026-11-08 23:59:59', 1),
+('Ahorro Canasta Básica', 'Descuento en granos básicos', 0.05, '2026-11-01 00:00:00', '2026-11-15 23:59:59', 1),
+('Higiene al Día', 'Descuento en cuidado personal', 0.12, '2026-11-03 00:00:00', '2026-11-20 23:59:59', 1),
+('Limpieza Profunda', 'Descuento en productos de limpieza', 0.10, '2026-11-05 00:00:00', '2026-11-25 23:59:59', 1),
+('Desayuno Saludable', 'Descuento en cereales y avena', 0.08, '2026-11-01 00:00:00', '2026-11-18 23:59:59', 1),
+('Snacks para Compartir', 'Descuento en bolsas de snacks', 0.15, '2026-11-10 00:00:00', '2026-11-24 23:59:59', 1),
+('Mascotas Felices', 'Descuento en alimento para mascotas', 0.10, '2026-11-02 00:00:00', '2026-11-29 23:59:59', 1),
+('Bebés Consentidos', 'Descuento en pañales seleccionados', 0.12, '2026-11-04 00:00:00', '2026-11-22 23:59:59', 1),
+('Panadería Fresca', 'Descuento en pan de molde', 0.10, '2026-11-07 00:00:00', '2026-11-14 23:59:59', 1),
+('Carnes de la Casa', 'Descuento en pollo fresco', 0.08, '2026-11-08 00:00:00', '2026-11-16 23:59:59', 1),
+('Frutas de Temporada', 'Descuento en frutas frescas', 0.15, '2026-11-01 00:00:00', '2026-11-12 23:59:59', 1),
+('Enlatados Listos', 'Descuento en conservas y atún', 0.10, '2026-11-09 00:00:00', '2026-11-27 23:59:59', 1),
+('Sabor en tu Mesa', 'Descuento en consomés y salsas', 0.10, '2026-11-11 00:00:00', '2026-11-28 23:59:59', 1),
+('Postres Fríos', 'Descuento en helados por litro', 0.20, '2026-11-12 00:00:00', '2026-11-30 23:59:59', 1),
+('Embutidos del Día', 'Descuento en jamones seleccionados', 0.12, '2026-11-05 00:00:00', '2026-11-19 23:59:59', 1),
+('Black November Bebidas', 'Promoción especial en bebidas', 0.25, '2026-11-20 00:00:00', '2026-11-30 23:59:59', 1),
+('Cliente Frecuente', 'Descuento especial por fidelidad', 0.05, '2026-11-01 00:00:00', '2026-12-31 23:59:59', 1),
+('Martes de Despensa', 'Descuento de martes en despensa', 0.10, '2026-11-03 00:00:00', '2026-11-24 23:59:59', 1),
+('Cierre de Mes Valora', 'Liquidación de fin de mes', 0.18, '2026-11-25 00:00:00', '2026-11-30 23:59:59', 1);
+
+INSERT INTO Productos_Ofertas (Id_Productos, Id_Oferta) VALUES
+(1, 1),
+(2, 1),
+(6, 2),
+(7, 2),
+(8, 3),
+(9, 3),
+(12, 4),
+(13, 5),
+(16, 6),
+(11, 7),
+(18, 8),
+(19, 9),
+(5, 10),
+(3, 11),
+(4, 12),
+(10, 13),
+(17, 14),
+(14, 15),
+(15, 16),
+(20, 17);
+
+INSERT INTO Cajas (Id_Sucursal, numero_caja, descripcion, estado) VALUES
+(1, 'CAJ-01-01', 'Caja principal 1 Kennedy', 1),
+(1, 'CAJ-01-02', 'Caja rápida 2 Kennedy', 1),
+(2, 'CAJ-02-01', 'Caja principal 1 Miraflores', 1),
+(2, 'CAJ-02-02', 'Caja rápida 2 Miraflores', 1),
+(3, 'CAJ-03-01', 'Caja principal 1 Palmira', 1),
+(3, 'CAJ-03-02', 'Caja rápida 2 Palmira', 1),
+(4, 'CAJ-04-01', 'Caja principal 1 Lomas', 1),
+(4, 'CAJ-04-02', 'Caja rápida 2 Lomas', 1),
+(5, 'CAJ-05-01', 'Caja principal 1 Hato', 1),
+(5, 'CAJ-05-02', 'Caja rápida 2 Hato', 1),
+(6, 'CAJ-06-01', 'Caja principal 1 Trapiche', 1),
+(6, 'CAJ-06-02', 'Caja rápida 2 Trapiche', 1),
+(7, 'CAJ-07-01', 'Caja principal 1 Florencia', 1),
+(7, 'CAJ-07-02', 'Caja rápida 2 Florencia', 1),
+(8, 'CAJ-08-01', 'Caja principal 1 Minitas', 1),
+(8, 'CAJ-08-02', 'Caja rápida 2 Minitas', 1),
+(9, 'CAJ-09-01', 'Caja principal 1 Tres Caminos', 1),
+(9, 'CAJ-09-02', 'Caja rápida 2 Tres Caminos', 1),
+(10, 'CAJ-10-01', 'Caja principal 1 Res. Honduras', 1),
+(10, 'CAJ-10-02', 'Caja rápida 2 Res. Honduras', 1);
+
+INSERT INTO Sesiones_Cajas (
+    Id_Caja, Id_Empleado, fecha_apertura, monto_inicial,
+    fecha_cierre, monto_esperado, diferencia, estado
+) VALUES
+(1, 5, '2026-11-01 08:00:00', 2000.00, '2026-11-01 16:00:00', 2179.20, 0.00, 0),
+(2, 12, '2026-11-01 08:00:00', 1500.00, '2026-11-01 16:00:00', 1500.00, 0.00, 0),
+(3, 5, '2026-11-02 08:00:00', 2000.00, '2026-11-02 16:00:00', 2355.60, 0.00, 0),
+(4, 12, '2026-11-02 08:00:00', 1500.00, '2026-11-02 16:00:00', 1500.00, 0.00, 0),
+(5, 5, '2026-11-03 08:00:00', 2000.00, '2026-11-03 16:00:00', 2324.00, 0.00, 0),
+(6, 12, '2026-11-03 08:00:00', 1500.00, '2026-11-03 16:00:00', 1500.00, 0.00, 0),
+(7, 5, '2026-11-04 08:00:00', 2000.00, '2026-11-04 16:00:00', 2320.50, 0.00, 0),
+(8, 12, '2026-11-04 08:00:00', 1500.00, '2026-11-04 16:00:00', 1500.00, 0.00, 0),
+(9, 5, '2026-11-05 08:00:00', 2000.00, '2026-11-05 16:00:00', 2263.35, 0.00, 0),
+(10, 12, '2026-11-05 08:00:00', 1500.00, '2026-11-05 16:00:00', 1500.00, 0.00, 0),
+(11, 5, '2026-11-06 08:00:00', 2000.00, '2026-11-06 16:00:00', 2331.20, 0.00, 0),
+(12, 12, '2026-11-06 08:00:00', 1500.00, '2026-11-06 16:00:00', 1500.00, 0.00, 0),
+(13, 5, '2026-11-07 08:00:00', 2000.00, '2026-11-07 16:00:00', 2328.90, 0.00, 0),
+(14, 12, '2026-11-07 08:00:00', 1500.00, '2026-11-07 16:00:00', 1500.00, 0.00, 0),
+(15, 5, '2026-11-08 08:00:00', 2000.00, '2026-11-08 16:00:00', 2253.60, 0.00, 0),
+(16, 12, '2026-11-08 08:00:00', 1500.00, '2026-11-08 16:00:00', 1500.00, 0.00, 0),
+(17, 5, '2026-11-09 08:00:00', 2000.00, '2026-11-09 16:00:00', 2449.65, 0.00, 0),
+(18, 12, '2026-11-09 08:00:00', 1500.00, '2026-11-09 16:00:00', 1500.00, 0.00, 0),
+(19, 5, '2026-11-10 08:00:00', 2000.00, '2026-11-10 16:00:00', 2505.96, 0.00, 0),
+(20, 12, '2026-11-10 08:00:00', 1500.00, NULL, 1500.00, 0.00, 1);
+
+INSERT INTO Repartidor_Externo (Id_Persona, empresa_Delivery, tipo_vehiculo) VALUES
+(1, 'Hugo Express', 'Motocicleta'),
+(2, 'PedidosYa', 'Motocicleta'),
+(3, 'Hugo Express', 'Automóvil'),
+(4, 'PedidosYa', 'Motocicleta'),
+(5, 'Valora Envíos', 'Motocicleta'),
+(6, 'Hugo Express', 'Motocicleta'),
+(7, 'PedidosYa', 'Motocicleta'),
+(8, 'Valora Envíos', 'Automóvil'),
+(9, 'Hugo Express', 'Motocicleta'),
+(10, 'PedidosYa', 'Motocicleta'),
+(11, 'Valora Envíos', 'Motocicleta'),
+(12, 'Hugo Express', 'Motocicleta'),
+(13, 'PedidosYa', 'Automóvil'),
+(14, 'Hugo Express', 'Motocicleta'),
+(15, 'PedidosYa', 'Motocicleta'),
+(16, 'Valora Envíos', 'Motocicleta'),
+(17, 'Hugo Express', 'Motocicleta'),
+(18, 'PedidosYa', 'Motocicleta'),
+(19, 'Valora Envíos', 'Automóvil'),
+(20, 'Hugo Express', 'Motocicleta');
+
+INSERT INTO Pedido_A_Domicilio (
+    Id_Repartidor, Id_Factura, nombre_destinatario, tarifa,
+    hora_salida, hora_entrega, Id_Direccion, estado_entrega
+) VALUES
+(1, 1, 'Carlos Martínez', 45.00, '2026-11-01 09:30:00', '2026-11-01 10:05:00', 1, 2),
+(2, 2, 'María Gómez', 50.00, '2026-11-01 10:45:00', '2026-11-01 11:20:00', 2, 2),
+(3, 3, 'José Rodríguez', 45.00, '2026-11-02 11:20:00', '2026-11-02 11:55:00', 3, 2),
+(4, 4, 'Jennifer Benítez', 60.00, '2026-11-02 14:35:00', '2026-11-02 15:15:00', 20, 2),
+(5, 5, 'Ana Hernández', 40.00, '2026-11-03 16:00:00', '2026-11-03 16:30:00', 5, 2),
+(6, 6, 'Luis Pérez', 45.00, '2026-11-03 16:25:00', '2026-11-03 17:00:00', 6, 2),
+(7, 7, 'Sofía Ramírez', 50.00, '2026-11-04 09:05:00', '2026-11-04 09:40:00', 7, 2),
+(8, 8, 'Pedro Sánchez', 45.00, '2026-11-04 12:15:00', '2026-11-04 12:50:00', 8, 2),
+(9, 9, 'Daniela Cruz', 40.00, '2026-11-05 13:40:00', '2026-11-05 14:10:00', 9, 2),
+(10, 10, 'Miguel Díaz', 45.00, '2026-11-05 17:55:00', '2026-11-05 18:30:00', 10, 2),
+(11, 11, 'Valeria Morales', 50.00, '2026-11-06 09:55:00', '2026-11-06 10:30:00', 11, 2),
+(12, 12, 'Jorge Alvarado', 45.00, '2026-11-06 12:10:00', '2026-11-06 12:45:00', 12, 2),
+(13, 13, 'Camila Ortiz', 50.00, '2026-11-07 10:30:00', '2026-11-07 11:05:00', 13, 2),
+(14, 14, 'Ricardo Castillo', 45.00, '2026-11-07 16:45:00', '2026-11-07 17:20:00', 14, 2),
+(15, 15, 'Gabriela Benítez', 40.00, '2026-11-08 12:35:00', '2026-11-08 13:05:00', 15, 2),
+(16, 16, 'Fernando Mendoza', 45.00, '2026-11-08 18:20:00', '2026-11-08 18:55:00', 16, 2),
+(17, 17, 'Paola Reyes', 50.00, '2026-11-09 09:20:00', '2026-11-09 09:55:00', 17, 2),
+(18, 18, 'Óscar Flores', 45.00, '2026-11-09 15:25:00', '2026-11-09 16:00:00', 18, 2),
+(19, 19, 'Natalia García', 50.00, '2026-11-10 12:00:00', '2026-11-10 12:35:00', 19, 2),
+(20, 20, 'Roberto Paz', 55.00, '2026-11-10 19:35:00', NULL, 20, 1);
+
+
+--datos default
+INSERT INTO Paises(nombre,codigo_iso,moneda)
+VALUES ('Sin determinar','-','-');
+
+INSERT INTO Departamentos(Id_Pais,nombre)
+VALUES (21,'Sin determinar');
+
+INSERT INTO Ciudades(Id_Departamento,nombre)
+VALUES (19,'Sin determinar')
+
+INSERT INTO Direcciones (Id_Ciudad, colonia, calle, referencia)
+VALUES (21, 'Sin dirección', NULL, 'Sin dirección registrada');

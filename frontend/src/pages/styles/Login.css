@@ -1,0 +1,197 @@
+:root {
+    --verde-principal: #0B5D3B;
+    --verde-secundario: #4CAF50;
+    --naranja-acento: #E65100;
+    --crema-fondo: #FFF4E6;
+    --gris-texto: #333333;
+    --blanco-tarjeta: #FFFFFF;
+    --borde-suave: #E2D5C5;
+}
+
+.login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background-color: var(--crema-fondo);
+    color: var(--gris-texto);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 440px;
+    background-color: var(--blanco-tarjeta);
+    border: 1px solid var(--borde-suave);
+    border-top: 5px solid var(--verde-principal);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 12px 28px rgba(11, 93, 59, 0.12);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.login-header h1 {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--verde-principal);
+    margin-bottom: 0.35rem;
+    letter-spacing: 0.4px;
+}
+
+.login-header p {
+    font-size: 0.92rem;
+    color: var(--gris-texto);
+    opacity: 0.85;
+}
+
+.rol-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.rol-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 1.4rem 1rem;
+    border-radius: 12px;
+    border: 1.5px solid var(--borde-suave);
+    background-color: var(--crema-fondo);
+    color: var(--verde-principal);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rol-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--verde-secundario);
+    background-color: #FFFFFF;
+    box-shadow: 0 6px 16px rgba(76, 175, 80, 0.18);
+}
+
+.rol-icono {
+    font-size: 1.85rem;
+}
+
+.modo-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+    background-color: var(--crema-fondo);
+    padding: 0.35rem;
+    border-radius: 10px;
+    border: 1px solid var(--borde-suave);
+    margin-bottom: 1.25rem;
+}
+
+.tab-btn {
+    padding: 0.6rem;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--gris-texto);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.tab-btn:hover {
+    color: var(--verde-principal);
+}
+
+.tab-btn.activo {
+    background-color: var(--verde-principal);
+    color: var(--crema-fondo);
+}
+
+.form-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.form-grupo label {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--gris-texto);
+}
+
+.form-grupo input {
+    padding: 0.72rem 0.85rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--borde-suave);
+    background-color: var(--crema-fondo);
+    color: var(--gris-texto);
+    font-size: 0.95rem;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.form-grupo input::placeholder {
+    color: #7a7a7a;
+}
+
+.form-grupo input:focus {
+    outline: none;
+    background-color: #FFFFFF;
+    border-color: var(--verde-secundario);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.18);
+}
+
+.btn-primario {
+    width: 100%;
+    padding: 0.82rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--naranja-acento);
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 0.96rem;
+    cursor: pointer;
+    margin-top: 0.4rem;
+    transition: background-color 0.15s ease, transform 0.12s ease;
+}
+
+.btn-primario:hover {
+    background-color: #c94700;
+    transform: translateY(-1px);
+}
+
+.btn-volver {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.62rem;
+    border: 1.5px solid var(--borde-suave);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--gris-texto);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-volver:hover {
+    background-color: var(--crema-fondo);
+    border-color: var(--verde-principal);
+    color: var(--verde-principal);
+}
+
+.mensaje-feedback {
+    margin-top: 1rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    background-color: rgba(76, 175, 80, 0.14);
+    border: 1px solid var(--verde-secundario);
+    color: var(--verde-principal);
+}
