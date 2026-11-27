@@ -48,6 +48,8 @@ class AuthResponse(OutBase):
     correo: str | None = None
     rol: str
     rol_empleado: str | None = None 
+    Id_Empleado: int | None = None
+    codigo_empleado: str | None = None
 
 
 class UserOut(BaseModel):
