@@ -4,6 +4,9 @@ import Login from "./pages/Login";
 import PanelAdmin from "./pages/PanelAdmin";
 import AperturaCaja from "./pages/AperturaCaja";
 import ArqueoCierre from "./pages/ArqueoCierre";
+import PanelEmpleado from "./pages/PanelEmpleado";
+
+import BotonLogin from "./components/BotonLogin";
 
 export default function App() {
 
