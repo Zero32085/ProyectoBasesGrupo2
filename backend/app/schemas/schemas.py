@@ -35,7 +35,7 @@ class RegistroClientesData(BaseModel):
     password: str = Field(min_length=8, max_length=72)
     telefono: str | None = Field(default=None, max_length=20)
     dni: str | None = Field(default=None, max_length=13)
-    fecha_nacimiento = str | None = Field(default=None,alias="fechaNacimiento")
+    fecha_nacimiento: str | None = Field(default=None,alias="fechaNacimiento")
     rtn: str | None = Field(default=None, max_length=14)
     razon_social: str | None = Field(default=None, max_length=200)
     Id_Direccion: int | None = None
@@ -47,6 +47,7 @@ class AuthResponse(OutBase):
     primer_apellido: str | None = None
     correo: str | None = None
     rol: str
+    rol_empleado: str | None = None 
 
 
 class UserOut(BaseModel):
