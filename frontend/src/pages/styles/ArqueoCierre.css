@@ -1,0 +1,8 @@
+.arqueo-sub { margin: 0 0 .75rem; color: #666; }
+.arqueo-tabla { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+.arqueo-tabla th, .arqueo-tabla td { padding: .5rem .6rem; border-bottom: 1px solid #E2D5C5; text-align: left; }
+.arqueo-tabla th:last-child, .arqueo-tabla td:last-child { text-align: right; }
+.arqueo-tabla tfoot td { font-weight: 700; border-bottom: none; }
+.dif-cuadra { color: #0B5D3B; font-weight: 700; }
+.dif-faltante { color: #B71C1C; font-weight: 700; }
+.dif-sobrante { color: #E65100; font-weight: 700; }

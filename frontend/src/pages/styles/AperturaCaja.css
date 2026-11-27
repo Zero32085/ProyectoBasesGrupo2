@@ -1,0 +1,223 @@
+.apertura-wrapper {
+    --verde-principal: #0B5D3B;
+    --naranja-acento: #E65100;
+    --crema-fondo: #FFF4E6;
+    --gris-texto: #333333;
+    --borde-suave: #E2D5C5;
+
+    min-height: 100vh;
+    padding: 1.5rem;
+    background-color: var(--crema-fondo);
+    color: var(--gris-texto);
+    text-align: left;
+    font-size: 16px;
+}
+
+.apertura-contenedor {
+    width: 100%;
+    max-width: 880px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.apertura-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.apertura-header h1 {
+    margin: 0;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--verde-principal);
+}
+
+.apertura-header p {
+    margin: 0.2rem 0 0;
+    text-transform: capitalize;
+    opacity: 0.8;
+}
+
+.apertura-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.apertura-card {
+    background: #fff;
+    border: 1px solid var(--borde-suave);
+    border-top: 5px solid var(--verde-principal);
+    border-radius: 16px;
+    padding: 1.4rem;
+    box-shadow: 0 8px 20px rgba(11, 93, 59, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.apertura-card h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: var(--verde-principal);
+}
+
+.apertura-card.exito {
+    border-top-color: #2e7d32;
+}
+
+.apertura-datos {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.apertura-datos div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px dashed var(--borde-suave);
+    padding-bottom: 0.4rem;
+}
+
+.apertura-datos dt {
+    font-weight: 600;
+    opacity: 0.75;
+}
+
+.apertura-datos dd {
+    margin: 0;
+    text-align: right;
+    font-weight: 600;
+}
+
+.apertura-badge {
+    align-self: flex-start;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.apertura-badge.ok {
+    background: #e3f4e8;
+    color: #1b5e20;
+}
+
+.apertura-badge.aviso {
+    background: #fff1d6;
+    color: #a14a00;
+}
+
+.apertura-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.apertura-campo label {
+    font-weight: 700;
+}
+
+.apertura-campo input,
+.apertura-campo select {
+    padding: 0.7rem 0.8rem;
+    font-size: 1rem;
+    border: 1px solid var(--borde-suave);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--gris-texto);
+}
+
+.apertura-campo input:focus,
+.apertura-campo select:focus {
+    outline: 2px solid var(--verde-principal);
+    outline-offset: 1px;
+}
+
+.campo-error {
+    color: #b71c1c;
+}
+
+.campo-ayuda {
+    color: var(--verde-principal);
+    font-weight: 600;
+}
+
+.apertura-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    cursor: pointer;
+}
+
+.apertura-check input {
+    margin-top: 0.25rem;
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+.apertura-alerta {
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.apertura-alerta.error {
+    background: #fde7e7;
+    color: #b71c1c;
+    border: 1px solid #f3b4b4;
+}
+
+.apertura-alerta.aviso {
+    background: #fff1d6;
+    color: #a14a00;
+    border: 1px solid #f0cf94;
+}
+
+.apertura-estado {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.btn-primario,
+.btn-secundario {
+    padding: 0.75rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-primario {
+    background: var(--verde-principal);
+    color: #fff;
+    border: none;
+}
+
+.btn-primario:hover:not(:disabled) {
+    filter: brightness(1.1);
+}
+
+.btn-primario:disabled {
+    background: #9db8ad;
+    cursor: not-allowed;
+}
+
+.btn-secundario {
+    background: transparent;
+    color: var(--verde-principal);
+    border: 2px solid var(--verde-principal);
+}
+
+@media (max-width: 700px) {
+    .apertura-grid {
+        grid-template-columns: 1fr;
+    }
+}
