@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.crud import crud
 from app.database import SessionLocal, engine
+from app.routers import caja
 from app.models.models import Base
 from app.schemas.schemas import (
     AuthResponse,
@@ -22,6 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(caja.router)
 
 def get_db():
     db = SessionLocal()
@@ -86,3 +88,24 @@ def login_empleado(data: LoginEmpleadoData, db: Session = Depends(get_db)):
         correo=persona.correo,
         rol="empleado",
     )
+
+
+#Con persona no me haci la comprobacion, solo con empleado
+#@app.post("/auth/empleado/login", response_model=AuthResponse)
+#def login_empleado(data: LoginEmpleadoData, db: Session = Depends(get_db)):
+#    empleado = crud.autenticar_empleado(db, data.codigo_empleado, data.password)
+#    if not empleado:
+#        raise HTTPException(
+#            status_code=status.HTTP_401_UNAUTHORIZED,
+#            detail="Código de empleado o contraseña incorrectos",
+#        )
+#    persona = empleado.persona
+#    return AuthResponse(
+#        Id_Persona=persona.Id_Persona,
+#        primer_nombre=persona.primer_nombre,
+#        primer_apellido=persona.primer_apellido,
+#        correo=persona.correo,
+#        rol="empleado",
+#        Id_Empleado=empleado.Id_Empleado,          # <-- el frontend lo necesita
+#        codigo_empleado=empleado.codigo_empleado,
+#    )
